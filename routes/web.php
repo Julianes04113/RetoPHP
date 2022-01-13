@@ -13,13 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('auth/login');})->name('main');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Auth::routes();
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth','verified'])->name('dashboard');
 
-Auth::routes(['verify' => true]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+require __DIR__.'/auth.php';
 
 Route::get('products', 'ProductController@index')->name('products.index');
 

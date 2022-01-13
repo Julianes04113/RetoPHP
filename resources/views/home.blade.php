@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('Se ha logeado correctamente! Espere un momento para ser redireccionado') }}
+                    {{ __('Perfecto! Se ha enviado un email de verificación para acceder a la aplicación de forma segura. Por favor revise su bandeja de entrada en su Email') }}
                 </div>
             </div>
         </div>
