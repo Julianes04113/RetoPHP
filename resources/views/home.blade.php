@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('Se ha logeado correctamente!') }}
+                    {{ __('Se ha logeado correctamente! Espere un momento para ser redireccionado') }}
                 </div>
             </div>
         </div>

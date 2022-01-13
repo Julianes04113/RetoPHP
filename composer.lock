@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf14086919a839fe740e00554e4baff6",
+    "content-hash": "3dd38bb8a09bb9f7f24429490a5a5bb2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5435,6 +5435,62 @@
     ],
     "packages-dev": [
         {
+            "name": "ambersive/keepachangelog",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AMBERSIVE/laravel-keepachangelog.git",
+                "reference": "af90948ce833d5e8d4d8781ec796ddc61a049a44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AMBERSIVE/laravel-keepachangelog/zipball/af90948ce833d5e8d4d8781ec796ddc61a049a44",
+                "reference": "af90948ce833d5e8d4d8781ec796ddc61a049a44",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "6.*|7.*|8.*",
+                "phlak/semver": "^3.2"
+            },
+            "require-dev": {
+                "illuminate/support": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*",
+                "laravel/framework": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*|8.*",
+                "orchestra/testbench": "3.8.*|4.*|5.*",
+                "php": ">=7.4",
+                "phpunit/phpunit": "^9.3@dev"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "laravel": {
+                    "providers": [
+                        "AMBERSIVE\\KeepAChangelog\\ChangelogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AMBERSIVE\\KeepAChangelog\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Manuel.PirkerIhl",
+                    "email": "manuel.pirker-ihl@ambersive.com"
+                }
+            ],
+            "description": "Use https://keepachangelog.com/en/1.0.0/ in your laravel project.",
+            "support": {
+                "issues": "https://github.com/AMBERSIVE/laravel-keepachangelog/issues",
+                "source": "https://github.com/AMBERSIVE/laravel-keepachangelog/tree/master"
+            },
+            "time": "2020-07-10T12:11:53+00:00"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.4.0",
             "source": {
@@ -6273,6 +6329,65 @@
                 "source": "https://github.com/phar-io/version/tree/3.1.0"
             },
             "time": "2021-02-23T14:00:09+00:00"
+        },
+        {
+            "name": "phlak/semver",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHLAK/SemVer.git",
+                "reference": "2167230f819d43d565194e2e91d69a1fa110c3df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHLAK/SemVer/zipball/2167230f819d43d565194e2e91d69a1fa110c3df",
+                "reference": "2167230f819d43d565194e2e91d69a1fa110c3df",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16.1",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "psy/psysh": "^0.10",
+                "vimeo/psalm": "^3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHLAK\\SemVer\\": "src/"
+                },
+                "files": [
+                    "src/Support/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Kankiewicz",
+                    "email": "Chris@ChrisKankiewicz.com"
+                }
+            ],
+            "description": "Semantic versioning helper library",
+            "support": {
+                "issues": "https://github.com/PHLAK/SemVer/issues",
+                "source": "https://github.com/PHLAK/SemVer/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/PHLAK",
+                    "type": "github"
+                },
+                {
+                    "url": "https://paypal.me/ChrisKankiewicz",
+                    "type": "paypal"
+                }
+            ],
+            "time": "2020-04-10T17:31:42+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
