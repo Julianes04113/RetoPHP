@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Resources\views\Admin\shows;
 
 class AdminController extends Controller
+
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +19,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return 'Aquí va el panel de Admin para administrar usuarios y productos';
+       $list = Product::all();
+       return view('Admin.shows', compact('list'));
+    
     }
 
     /**
@@ -23,7 +31,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.create');
     }
 
     /**
@@ -34,7 +42,16 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /* $product = Product::create([
+            'title' => request() ->title,
+            'description' => request() ->description,
+            'price' => request() ->price,
+            'stock' => request() ->stock,
+            'status' => request() ->status,
+            ]); */
+            $product = Product::create(request()->all());
+
+            return $product;
     }
 
     /**

@@ -23,9 +23,9 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware('AdminMiddleware');
+//Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware('AdminMiddleware');
 
-Route::get('products', 'ProductController@index')->name('products.index');
+Route::get('/products', 'ProductController@index')->name('products.index');
 
 Route::get('products/create', 'ProductController@create')->name('products.create');
 

@@ -3,19 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Resources\views\Products\index;
 
 class ProductController extends Controller
 {
     public function index(){
-        return 'Esta es la lista de productos del CONTROLADOR';
+
+        $list = Product::all();
+       return view('Products.index', compact('list'));
     }
 
     public function create(){
-        return 'Este es el formulario para crear productos del CONTROLADOR';
+        return view('Products.create');
     }
 
     public function store(){
-       //return 'Esta es la lista de productos del CONTROLADOR';
+       dd('Estamos en store');
     } 
 
     public function show($product){
