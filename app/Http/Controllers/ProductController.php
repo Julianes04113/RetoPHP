@@ -22,22 +22,39 @@ class ProductController extends Controller
     }
 
     public function store(){
-       dd('Estamos en store');
+       $product = Product::create(request()->all());
+
+        return view('Products.stored');
+
     } 
 
     public function show($product){
-       // return 'Esta es la lista de productos del CONTROLADOR';
+
+       $product = Product::findOrFail($product);
+
+       return view('products.show')->with([
+        'product'=> $product,   
+       ]);
+       //comentario en vista
     }
 
     public function edit($product){
-        //return 'Esta es la lista de productos del CONTROLADOR';
+        return view('products.edit')->with([
+            'product'=> Product::findOrFail($product),
+            ]);
     }
 
     public function update($product){
-        //return 'Esta es la lista de productos del CONTROLADOR';
+        //dd('Estoy en update');
+        $product= Product::findOrFail($product);
+        $product->update(request()->all());
+        return view('products.edited');
+        //comentario en vista
     }
 
     public function destroy($product){
-        //return 'Esta es la lista de productos del CONTROLADOR';
+        $product=Product::findOrFail($product);
+        $product->delete();
+        return $product;
     }
 }
