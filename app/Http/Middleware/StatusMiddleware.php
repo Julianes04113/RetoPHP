@@ -17,10 +17,10 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check() && auth()->user()->is_admin==1){
+        if(auth()->user()->status==1){
         return $next($request);
     }
-    return redirect()->route('dashboard')->with('error','No estás autorizado para entrar como Admin');
+    return redirect()->route('dashboard')->with('error','No estás autorizado para entrar, contacte al Administrador del sitio');
     //¿porqué no se imprime el error?
     }
 }

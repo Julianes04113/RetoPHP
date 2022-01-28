@@ -12,7 +12,6 @@ use Resources\views\Products\index;
 class ProductController extends Controller
 {
     public function index(){
-
         $list = Product::all();
        return view('Products.index', compact('list'));
     }
@@ -23,7 +22,6 @@ class ProductController extends Controller
 
     public function store(){
        $product = Product::create(request()->all());
-
         return view('Products.stored');
 
     } 
@@ -31,7 +29,7 @@ class ProductController extends Controller
     public function show($product){
 
        $product = Product::findOrFail($product);
-
+       //dd($product);
        return view('products.show')->with([
         'product'=> $product,   
        ]);
@@ -55,6 +53,6 @@ class ProductController extends Controller
     public function destroy($product){
         $product=Product::findOrFail($product);
         $product->delete();
-        return $product;
+        return view('products.deleted');
     }
 }
