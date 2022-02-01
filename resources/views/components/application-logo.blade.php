@@ -184,8 +184,8 @@ bW9kaWZ5ADIwMjItMDEtMjBUMTg6NTA6NTkrMDM6MDAp2X1RAAAAAElFTkSuQmCC" />
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
 <body>
-<div class="bg-clip-border p-4 bg-lime-300">
-<h1 style="color:$FF3333";>Mercatodo</h1>
-<h2 style="color:$777777";>Aquí todo es más caro</h2>
+<div class="bg-clip-border p-2 bg-lime-300 rounded">
+<h1 class="text-center text-sm text-red-700">Mercatodo</h1>
+<h2 class="text-center text-xs text-grey-700">Aquí todo es más caro</h2>
 </div>
 </body>

@@ -9,13 +9,24 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    Aquí se muestran la información de un usuario!
-                    <p>ID del usuario:{{ $user->id}}
-                    <br>Nombre:{{ $user->name}}
-                    <br>Email:{{ $user->email}}
-                    <br>Rol:{{ $user->is_admin}}
-                    <br>Estado:{{ $user->status}}
-                    <br></br> </p>
+                    Aquí se muestra la información de un usuario!
+                    <p class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-100">
+                        <br>Nombre: {{$user->name}}    
+                        <br>Email: {{ $user->email}}
+                        <br>Rol:
+                        @if($user->is_admin ==0)
+                            Usuario
+                        @else
+                            Administrador
+                        @endif 
+                        <br>Estado:
+                        @if($user->status ==0)
+                            Deshabilitado
+                        @else
+                            Habilitado
+                        @endif  
+                        <br><a href="{{route('users.edit', ['user'=> $user->id]) }}" type="button" class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Editar Usuario</a>
+                    </p>
                 </div>
             </div>
         </div>

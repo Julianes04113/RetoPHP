@@ -11,19 +11,22 @@ use Resources\views\Users\edit;
 
 class AdminController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $userslist = User::all();
         return view('users.index', compact('userslist'));
     }
 
-public function show($user){
+public function show($user)
+    {
        $user = User::findOrFail($user);
        return view('users.show')->with([
         'user'=> $user,   
        ]);
     }
 
-    public function edit($user){
+    public function edit($user)
+    {
         $user = User::findOrFail($user);
         //dd($user);
         return view('users.edit')->with([
