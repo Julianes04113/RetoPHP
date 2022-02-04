@@ -24,35 +24,61 @@
 <!-- Código-->
 <div class="flex">
     <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Código:</span>
-    <input name="code" class="border border-2 rounded-r px-4 py-2 w-full" type="text" required value="{{old('code')}}"/>
+    <input name="code" class="border border-2 rounded-r px-4 py-2 w-full" type="text" value="{{old('code')}}"/>
+   @error('code')
+   <p class="text-red-500 text-xs italic">{{$message}}</p>
+    @enderror
 </div>
                       <!-- Titulo -->
 <div class="flex">
     <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Nombre:</span>
-    <input name="title" class="border border-2 rounded-r px-4 py-2 w-full" type="text" placeholder="Ingrese el nombre del producto" required value="{{old('title')}}"/>
+    <input name="title" class="border border-2 rounded-r px-4 py-2 w-full" type="text" placeholder="Ingrese el nombre del producto" value="{{old('title')}}"/>
+    @error('title')
+   <p class="text-red-500 text-xs italic">{{$message}}</p>
+    @enderror
 </div>
                          <!-- Descripción -->
 <div class="flex">
     <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Descripción:</span>
-    <input name="description" class="border border-2 rounded-r px-4 py-2 w-full" type="text" placeholder="Ingrese el precio del producto" required value="{{old('description')}}"/>
+    <input name="description" class="border border-2 rounded-r px-4 py-2 w-full" type="text" placeholder="Ingrese el precio del producto" value="{{old('description')}}"/>
+    @error('description')
+   <p class="text-red-500 text-xs italic">{{$message}}</p>
+    @enderror
 </div>
 <!--Precio -->
 <div class="flex">
     <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Precio:</span>
-    <input name="price" class="border border-2 rounded-r px-4 py-2 w-full" type="number" min="1" required value="{{old('price')}}"/>
+    <input name="price" class="border border-2 rounded-r px-4 py-2 w-full" type="number" min="1" value="{{old('price')}}"/>
+    @error('price')
+   <p class="text-red-500 text-xs italic">{{$message}}</p>
+    @enderror
 </div>
 <!-- Cantidad-->
 <div class="flex">
     <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Cantidad:</span>
-    <input name="stock" class="border border-2 rounded-r px-4 py-2 w-full" type="number" min="0" required value="{{old('stock')}}"/>
+    <input name="stock" class="border border-2 rounded-r px-4 py-2 w-full" type="number" min="0" value="{{old('stock')}}"/>
+    @error('stock')
+   <p class="text-red-500 text-xs italic">{{$message}}</p>
+    @enderror
 </div>
                 
-<!--Stock-->
-<div class="w-full flex flex-col mb-3">
+<!--Status-->
+<!--<div class="w-full flex flex-col mb-3">
 <label class="font-semibold text-gray-800 py-2">Estado</label>
-<select name="status" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full " required>
+<select name="status" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full">
 <option value="Available">Disponible</option>
-<option value="Unavailable">No Disponible</option></select>
+<option value="Unavailable">No Disponible</option></select>-->
+<div class="block">
+  <span class="text-gray-700">Checkboxes</span>
+  <div class="mt-2">
+    <div>
+      <label class="inline-flex items-center">
+        <input type="checkbox" class="form-checkbox" name="disabled_at">
+        <span class="ml-2">Option 1</span>
+      </label>
+    </div>
+  </div>
+</div>
 <!--Imagen-->
 <div class="grid grid-cols-1 mt-5 mx-7">
       <label class="text-center text-xl text-lime-500">Agregar Imagen</label>
@@ -65,7 +91,7 @@
               <input type='file' class="hidden" />
             </label>
         </div>
-</div>
+</div> 
 
 <button class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Crear Producto</button>
 </div>

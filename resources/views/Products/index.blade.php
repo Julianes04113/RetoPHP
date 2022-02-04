@@ -38,5 +38,9 @@
                 </div>
             </div>
         </div>
+        <div class="bg-gray-200 text-black font-bold py-2 px-4 rounded">
+                {{ $list->links('pagination::tailwind') }}
+            </div>
     </div>
+
 </x-app-layout>
