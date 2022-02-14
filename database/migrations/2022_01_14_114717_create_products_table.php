@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
             $table->string('description',500);
             $table->unsignedBigInteger('price');
             $table->unsignedInteger('stock');
-            $table->timestamp('disabled_at')->nullable();
+            $table->enum('status', ['available', 'unavailable']);
             $table->timestamps();
         });
     }

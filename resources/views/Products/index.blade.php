@@ -21,7 +21,7 @@
                         @if($products->status =='available')
                             Disponible
                         @else
-                            No Disponible
+                            Deshabilitado
                         @endif 
                         <br>Acciones:
                             <div class="p-6 bg-white border-b border-gray-200">

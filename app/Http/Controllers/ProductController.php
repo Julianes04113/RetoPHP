@@ -13,6 +13,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\Image;
+use Illuminate\Support\Str;
 
 
 class ProductController extends Controller
@@ -44,7 +46,10 @@ class ProductController extends Controller
                 ->withErrors('Si está disponible, debe tener un stock mínimo de 1');
         }
         */
-        //dd($request->all(), $request->validated());
+        //dd($request->all());
+        $image= new Image;
+
+        $image->storeAs('image',(string) Str::uuid() . '.' . $image->getClientOriginalExtension());
 
         $product = Product::create($request->validated());
 

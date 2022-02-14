@@ -15,7 +15,12 @@
                     <br>Nombre:{{ $product->title}}
                     <br>Precio:{{ $product->price}}
                     <br>Stock:{{ $product->stock}}
-                    <br>Estado:{{ $product->status}}
+                    <br>Estado: 
+                        @if($product->status =='available')
+                            Disponible
+                        @else
+                            Deshabilitado
+                        @endif 
                     <br></br> </p>
                 </div>
             </div>
