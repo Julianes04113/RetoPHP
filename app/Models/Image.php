@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Storage;
 class Image extends Model
 {
     use HasFactory;
-
-    public function url(): string
-    {
-        return Storage::disk(config('filesystems.image_disk'))->url("{$this->product_id}/{$this->file_name}");
+    protected $fillable = [
+        'path',
+    ];
+    public function imageable(){
+        return $this->morphTo();
     }
 }

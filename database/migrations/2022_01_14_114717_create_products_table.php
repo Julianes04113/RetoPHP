@@ -11,13 +11,13 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->char('code',10)->unique;
             $table->string('title',100);
             $table->string('description',500);
             $table->unsignedBigInteger('price');
             $table->unsignedInteger('stock');
-            $table->enum('status', ['available', 'unavailable']);
+            $table->enum('status', ['available', 'unavailable'])->default('available');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -67,7 +67,7 @@
 <label class="font-semibold text-gray-800 py-2">Estado</label>
 <select name="status" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full">
 <option value="Available">Disponible</option>
-<option value="Unavailable">Deshabilitado</option></select>-->
+<option value="Unavailable">Deshabilitado</option></select>
 <!-- checkbox>
 <div class="block">
   <span class="text-gray-700">Checkboxes</span>

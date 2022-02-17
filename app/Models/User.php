@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Order;
+use App\Models\Payment;
+use App\Models\Image;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -17,16 +20,29 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'is_admin',
-        'status',
+        //'admin_since',
+        //'disabled_at',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
+    protected $dates = [
+        'admin_since'
+    ];
+    
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function orders(){
+        return $this->hasMany(Order::class, 'costumer_id');
+    }
+    public function payments(){
+        return $this->HasManyThrough(Payment::class, Order::class,'customer_id');
+    }//Payments debe tener una llave foránea del modelo intermedio (order)
+    public function image(){
+        return $this->morphOne(Image::class,'imageable');
+    }
 }
