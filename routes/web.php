@@ -24,30 +24,8 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-//Agrupar rutas para vista de products para Admin
+Route::resource('products', 'ProductController')->middleware('StatusMiddleware');
 
-Route::get('/products', 'ProductController@index')->name('products.index')->middleware('AdminMiddleware', 'StatusMiddleware');
+Route::resource('products.carts', 'ProductCartController')->only(['store','destroy']);
 
-Route::get('products/create', 'ProductController@create')->name('products.create')->middleware('AdminMiddleware', 'StatusMiddleware');
-
-Route::post('products', 'ProductController@store')->name('products.store')->middleware('AdminMiddleware', 'StatusMiddleware');
-
-Route::get('products/{product}', 'ProductController@show')->name('products.show')->middleware('AdminMiddleware', 'StatusMiddleware');
-Route::get('products/{product}/edit', 'ProductController@edit')->name('products.edit')->middleware('AdminMiddleware', 'StatusMiddleware');
-Route::match(['put','patch'], 'products/{product}', 'ProductController@update')->name('products.update')->middleware('AdminMiddleware', 'StatusMiddleware');
-
-Route::delete('products/{product}', 'ProductController@destroy')->name('products.destroy')->middleware('AdminMiddleware', 'StatusMiddleware');
-
-//Agrupar rutas para vista de users para Admin
-
-Route::get('/users', 'AdminController@index')->name('users.index')->middleware('AdminMiddleware', 'StatusMiddleware');
-
-//Route::get('users/create', 'AdminController@create')->name('users.create')->middleware('AdminMiddleware', 'StatusMiddleware');
-
-//Route::post('users', 'AdminController@store')->name('users.store')->middleware('AdminMiddleware', 'StatusMiddleware');
-
-Route::get('users/{user}', 'AdminController@show')->name('users.show')->middleware('AdminMiddleware', 'StatusMiddleware');
-Route::get('users/{user}/edit', 'AdminController@edit')->name('users.edit')->middleware('AdminMiddleware', 'StatusMiddleware');
-Route::match(['put','patch'], 'users/{user}', 'AdminController@update')->name('users.update')->middleware('AdminMiddleware', 'StatusMiddleware');
-
-//Route::delete('users/{userid}', 'AdminController@destroy')->name('users.destroy')->middleware('AdminMiddleware', 'StatusMiddleware');
+Route::resource('users','AdminController')->middleware('AdminMiddleware','StatusMiddleware');

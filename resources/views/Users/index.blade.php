@@ -15,16 +15,16 @@
                         <br>Nombre: {{$users->name}}    
                         <br>Email: {{ $users->email}}
                         <br>Rol:
-                        @if($users->is_admin ==0)
+                        @if($users->admin_since==null)
                             Usuario
                         @else
                             Administrador
                         @endif 
                         <br>Estado:
-                        @if($users->status ==0)
-                            Deshabilitado
-                        @else
+                        @if($users->disabled_at ==null)
                             Habilitado
+                        @else
+                            DesHabilitado
                         @endif  
                         <br>Acción
                         <br>

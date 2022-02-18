@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -30,6 +31,16 @@ class Product extends Model
     }
     public function images(){
         return $this->morphMany(Image::class,'imageable');
+    }
+
+    public function scopeFilter(Builder $query, string $keyword){
+        
+        if (!empty($keyword)){
+            return $query->where(function($query) use($keyword) {
+                $query->where('title','LIKE','%'.$keyword.'%')
+                      ->orWhere('description','LIKE','%'.$keyword.'%');
+            });
+        }
     }
 
 }

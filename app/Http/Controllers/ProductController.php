@@ -19,9 +19,14 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $list = Product::Paginate(15);
-       return view('Products.index', compact('list'));
+    public function index(Request $request){
+       $productSearch=trim($request->get('ProductSearchBar'));
+       $searched = Product::select('id','title','description','price','stock')
+            ->filter($productSearch)
+            ->orderBy('id','asc')
+            ->paginate(10);
+       //$list = Product::Paginate(15);
+       return view('Products.index', compact('productSearch','searched'));
     }
 
     public function create(){
@@ -29,10 +34,6 @@ class ProductController extends Controller
     }
 
     public function store(StoreProductRequest $request){
-
-       // $image= new Image;
-
-        //$image->storeAs('image',(string) Str::uuid() . '.' . $image->getClientOriginalExtension());
 
         $product = Product::create($request->validated());
 

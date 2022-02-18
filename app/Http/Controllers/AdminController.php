@@ -28,7 +28,6 @@ public function show($user)
     public function edit($user)
     {
         $user = User::findOrFail($user);
-        //dd($user);
         return view('users.edit')->with([
             'user'=> $user,
             ]);
@@ -37,7 +36,6 @@ public function show($user)
     public function update($user){
      
         $user= User::findOrFail($user);
-        //dd($user);
         $user->update(request()->all());
         return view('users.edited');
          }

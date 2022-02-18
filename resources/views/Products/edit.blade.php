@@ -22,13 +22,7 @@
                     <form method="POST" action="{{route('products.update', ['product'=> $product->id]) }}">
                            @csrf
                            @method('PUT')
- <div class="flex">
-    <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Código:(No Editar)</span>
-    <input name="code" class="border border-2 rounded-r px-4 py-2 w-full" type="text" value="{{$product->code}}"/>
-    @error('code')
-   <p class="text-red-500 text-xs italic">{{$message}}</p>
-    @enderror
-</div>                    
+                
                       <!-- Titulo -->
 <div class="flex">
     <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Nombre:</span>
@@ -67,7 +61,7 @@
 <label class="font-semibold text-gray-800 py-2">Estado</label>
 <select name="status" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full " required>
 <option value="available" {{$product->status == 'available' ? 'selected' : ''}} >Disponible</option>
-<option value="unavailable" {{$product->status == 'unavailable' ? 'selected' : ''}}>No Disponible</option></select>
+<option value="unavailable" {{$product->status == 'unavailable' ? 'selected' : ''}}>Deshabilitado</option></select>
 <button class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Editar Producto</button>
 </div>
 

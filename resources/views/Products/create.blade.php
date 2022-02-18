@@ -21,14 +21,7 @@
 
                     <form method="POST" action="{{route('products.store') }}" enctype="multipart/form-data">
                            @csrf
-<!-- Código-->
-<div class="flex">
-    <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Código:</span>
-    <input name="code" class="border border-2 rounded-r px-4 py-2 w-full" type="text" value="{{old('code')}}"/>
-   @error('code')
-   <p class="text-red-500 text-xs italic">{{$message}}</p>
-    @enderror
-</div>
+
                       <!-- Titulo -->
 <div class="flex">
     <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Nombre:</span>
@@ -95,7 +88,7 @@ Imagen
         </div>
 </div> -->
 
-<div class="flex justify-center">
+<!--<div class="flex justify-center">
   <div class="mb-3 w-96">
     <label for="formFile" class="form-label inline-block mb-2 text-gray-700">Suba aquí la imagen</label>
     <input class="form-control
@@ -114,7 +107,7 @@ Imagen
     m-0
     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="image" name="image">
   </div>
-</div>
+</div>-->
 
 <button class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Crear Producto</button>
 </div>
