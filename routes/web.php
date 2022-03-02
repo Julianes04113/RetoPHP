@@ -2,30 +2,38 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserProductController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/', function () {return view('welcome');});
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth','verified'])->name('dashboard');
+Route::get('/dashboard', function () {return view('dashboard');})->middleware(['auth','verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-Route::resource('products', 'ProductController')->middleware('StatusMiddleware');
+Route::prefix('Admin')
+    ->middleware(['auth','verified','AdminMiddleware'])
+    ->group( function(){
+        Route::resource('products', 'ProductController');
+        Route::resource('users','AdminController');
+        Route::resource('products.cart','ProductCartController')->only('store', 'destroy');
+    });
 
-Route::resource('products.carts', 'ProductCartController')->only(['store','destroy']);
+Route::prefix('Market')
+    ->middleware(['auth','verified','StatusMiddleware'])
+    ->group( function(){
+        Route::resource('products', 'UserProductController')->only('index','show');
+        Route::view('/MyProfile', 'Market.MyProfile.Profile')->name('MyProfile');
+        Route::resource('carts','CartController')->only('index');
+    });
 
-Route::resource('users','AdminController')->middleware('AdminMiddleware','StatusMiddleware');
+
+
+
+
+
+
+//Route::fallback(function () {
+  //  dd('La Cagaste');
+//});

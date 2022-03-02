@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -20,8 +21,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        //'admin_since',
-        //'disabled_at',
     ];
 
     protected $hidden = [
@@ -44,5 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }//Payments debe tener una llave foránea del modelo intermedio (order)
     public function image(){
         return $this->morphOne(Image::class,'imageable');
+    }
+
+     public function scopeUfilter(Builder $query, string $keyword){
+        
+        if (!empty($keyword)){
+            return $query->where(function($query) use($keyword) {
+                $query->where('name','LIKE','%'.$keyword.'%')
+                      ->orWhere('email','LIKE','%'.$keyword.'%');
+            });
+        }
     }
 }
