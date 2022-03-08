@@ -11,9 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                   <!--Busqueda-->
-<div class="basis-1/2 mr-2 my-2 object-center self-center"><form action="{{route('users.index')}}" method="GET">@csrf
-  <input type="search" name="UserSearchBar" class="bg-purple-white shadow rounded border-2 object-center" placeholder="Buscar un usuario por nombre o email" value="{{$userSearch}}"></form>
-</div>
+
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <x-sucess-message />
                   <!-- UserTable-->
@@ -36,12 +34,12 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            @foreach ($searched as $user)
+            @foreach ($users as $user)
             <tr>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 h-10 w-10">
-                    <img class="h-10 w-10 rounded-full" src="{{asset($user->image->path)}}" alt=""></img>
+                    <img class="h-10 w-10 rounded-full" src="{{asset($user->image->path)}}" alt="none"></img>
                   </div>
                   <div class="ml-4">
                     <div class="text-sm font-medium text-gray-900">{{$user->name}}</div>
@@ -55,7 +53,7 @@
                 <div class="text-sm text-gray-900">{{$user->admin_since}}</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                @if($user->disabled_at!=NULL)
+                @if($user->disabled_at==null)
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Activo</span>
                 @else
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Deshabilitado</span>
@@ -84,6 +82,6 @@
         </div>
     </div>
             <div class="bg-gray-200 text-black font-bold py-2 px-4 rounded">
-                {{ $searched->links('pagination::tailwind') }}
+                {{ $users->links('pagination::tailwind') }}
             </div>
 </x-app-layout>

@@ -5,13 +5,14 @@ namespace App\Services;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Cookie;
 
-class CartService
+class cartService
 
 {
-    protected $cookieName ='cart';
+    protected $cookieName = 'cart';
 
   
     public function getFromCookie(){
+
         $cartId = Cookie::get($this->cookieName);
         $cart=Cart::find($cartId);
         return $cart; 

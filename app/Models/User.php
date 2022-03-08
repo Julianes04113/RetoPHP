@@ -38,14 +38,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders(){
         return $this->hasMany(Order::class, 'costumer_id');
     }
+    
     public function payments(){
         return $this->HasManyThrough(Payment::class, Order::class,'customer_id');
     }//Payments debe tener una llave foránea del modelo intermedio (order)
+    
     public function image(){
         return $this->morphOne(Image::class,'imageable');
     }
 
-     public function scopeUfilter(Builder $query, string $keyword){
+     public function scopeFilter(Builder $query, string $keyword){
         
         if (!empty($keyword)){
             return $query->where(function($query) use($keyword) {

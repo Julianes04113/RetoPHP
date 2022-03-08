@@ -23,7 +23,7 @@ class ImageFactory extends Factory
     }
     public function user()
     {
-        $fileName=$this->faker->numberBetween(1,2) . '.jpg';
+        $fileName=$this->faker->numberBetween(1,5) . '.jpg';
         return $this->state([
             'path' => "images/users/{$fileName}"
         ]);

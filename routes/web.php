@@ -17,7 +17,6 @@ Route::prefix('Admin')
     ->group( function(){
         Route::resource('products', 'ProductController');
         Route::resource('users','AdminController');
-        Route::resource('products.cart','ProductCartController')->only('store', 'destroy');
     });
 
 Route::prefix('Market')
@@ -25,7 +24,10 @@ Route::prefix('Market')
     ->group( function(){
         Route::resource('products', 'UserProductController')->only('index','show');
         Route::view('/MyProfile', 'Market.MyProfile.Profile')->name('MyProfile');
+        Route::resource('products.cart','ProductCartController')->only('store', 'destroy');
+        Route::resource('orders','OrderController')->only('create', 'store');
         Route::resource('carts','CartController')->only('index');
+
     });
 
 

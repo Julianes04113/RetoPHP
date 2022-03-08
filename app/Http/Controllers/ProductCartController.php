@@ -6,14 +6,14 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-use App\Services\CartService;
+use App\Services\cartService;
 
 class ProductCartController extends Controller
 {
 
     public $cartService;
 
-    public function __construct(CartService $cartService)
+    public function __construct(cartService $cartService)
     {
         $this->cartService = $cartService;
     }

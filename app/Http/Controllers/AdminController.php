@@ -14,18 +14,15 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Image;
 use Illuminate\View\View;
+use App\Http\Requests\Admin\StoreUserRequest;
 
 class AdminController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-       $userSearch=trim($request->get('UserSearchBar'));
-       
-       $searched = User::select('name','email','admin_since','disabled_at')
-            ->ufilter($userSearch)
-            ->orderBy('id','asc')
-            ->paginate(5);
-    return view('users.index', compact('userSearch','searched'));
+       $users=User::paginate(10);
+       //dd($users);
+    return view('users.index', compact('users'));
     }
 
 public function show($user): View
@@ -37,13 +34,13 @@ public function show($user): View
     public function edit($user): View
     {
         $user = User::findOrFail($user);
-        return view('users.edit')->with(['user'=> $user,User::findOrFail($user)]);
+        return view('users.edit')->with(['user'=> $user]);
     }
 
-    public function update($user){
-     // agregar validador usuario
+    public function update(StoreUserRequest $request,User $user){
+
         $user= User::findOrFail($user);
-        $user->update(request()->all());
+        $user->save(request($request)->validated());
        return redirect()->back()->with('success','Bien Tontolín, te quedo editado bien esta mondá');
          }
 }

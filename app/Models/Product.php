@@ -43,4 +43,9 @@ class Product extends Model
         }
     }
 
+    public function getTotalAttribute()
+    {
+        return $this->pivot->quantity * $this->price;
+    }
+
 }

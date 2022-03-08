@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
-use App\Services\CartService;
+use App\Services\cartService;
 
 class CartController extends Controller
 {
     public $cartService;
 
-    public function __construct(CartService $cartService)
+    public function __construct(cartService $cartService)
     {
         $this->cartService = $cartService;
     }

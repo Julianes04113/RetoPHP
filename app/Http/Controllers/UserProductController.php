@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Models\Image;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use App\Models\User;
 
 class UserProductController extends Controller
 {

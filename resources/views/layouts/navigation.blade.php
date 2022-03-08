@@ -23,11 +23,13 @@
                     </x-nav-link>
                 </div>
                 <!--Users button-->
+                @if(auth()->user()->admin_since!=null)
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         {{ __('Usuarios') }}
                     </x-nav-link>
                 </div>
+                @endif
                 <!--Cart-->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">

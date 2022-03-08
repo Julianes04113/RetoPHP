@@ -54,21 +54,7 @@
 <option value="Available">Disponible</option>
 <option value="Unavailable">Deshabilitado</option></select>
 
-<!-- Imagen
-<div class="grid grid-cols-1 mt-5 mx-7">
-      <label class="text-center text-xl text-lime-500">Agregar Imagen</label>
-        <div class='flex items-center justify-center w-full'>
-            <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
-                <div class='flex flex-col items-center justify-center pt-7'>
-                  <svg class="w-10 h-10 text-purple-400 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                  <p class='text-sm text-gray-300 group-hover:text-lime-600 tracking-wider'>Seleccione una imagen</p>
-                </div>
-              <input type='file' class="hidden" field-label="image" field-name="image" id="image" name="image" />
-            </label>
-        </div>
-</div> -->
-
-<!--<div class="flex justify-center">
+<div class="flex justify-center">
   <div class="mb-3 w-96">
     <label for="formFile" class="form-label inline-block mb-2 text-gray-700">Suba aquí la imagen</label>
     <input class="form-control
@@ -85,9 +71,9 @@
     transition
     ease-in-out
     m-0
-    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="image" name="image">
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="images" name="images">
   </div>
-</div>-->
+</div>
 
 <button class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Crear Producto</button>
 </div>

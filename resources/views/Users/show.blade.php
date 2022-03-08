@@ -12,15 +12,15 @@
                     Aquí se muestra la información de un usuario!
                     <p class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-100">
                         <br>Nombre: {{$user->name}}    
-                        <br>Email: {{ $user->email}}
+                        <br>Email: {{$user->email}}
                         <br>Rol:
-                        @if($user->is_admin ==0)
+                        @if($user->admin_since==null)
                             Usuario
                         @else
                             Administrador
                         @endif 
                         <br>Estado:
-                        @if($user->status ==0)
+                        @if($user->disabled_at!=null)
                             Deshabilitado
                         @else
                             Habilitado

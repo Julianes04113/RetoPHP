@@ -12,8 +12,6 @@ class Createimagestable extends Migration
         Schema::create('images', function(Blueprint $table){
             $table->id();
             $table->string('path');
-            $table->foreignId('product_id')->constrained();
-            $table->string('file_name', 40);
             $table->morphs('imageable');
             $table->timestamps();
         });
@@ -21,6 +19,6 @@ class Createimagestable extends Migration
 
     public function down()
     {
-        Schema::dropIfExist('images');
+        Schema::dropIfExists('images');
     }
 }
