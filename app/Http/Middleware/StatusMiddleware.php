@@ -8,13 +8,11 @@ use Illuminate\Support\MessageBag;
 
 class AdminMiddleware
 {
-
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->disabled_at <>NULL ){
-        return $next($request);
-    }
-    return redirect()->route('dashboard')->with('error','No estás autorizado para entrar, contacte al Administrador del sitio');
-
+        if (auth()->user()->disabled_at <>null) {
+            return $next($request);
+        }
+        return redirect()->route('dashboard')->with('error', 'No estás autorizado para entrar, contacte al Administrador del sitio');
     }
 }

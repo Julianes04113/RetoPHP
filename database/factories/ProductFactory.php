@@ -8,19 +8,18 @@ use App\Models\Product;
 
 class ProductFactory extends Factory
 {
+    use HasFactory;
 
     protected $model = Product::class;
-
-    use HasFactory;
 
     public function definition()
     {
         return [
             'title' => $this ->faker->sentence(3),
             'description' => $this ->faker->text(250),
-            'price' => $this ->faker->numberBetween($min=500,$max=1000000),
-            'stock' => $this ->faker->numberBetween($min=1,$max=150),
-            'status' => $this ->faker->optional(0.1,'available')->randomElement(['available','unavailable']),
+            'price' => $this ->faker->numberBetween($min=500, $max=1000000),
+            'stock' => $this ->faker->numberBetween($min=1, $max=150),
+            'status' => $this ->faker->optional(0.1, 'available')->randomElement(['available','unavailable']),
         ];
     }
 }

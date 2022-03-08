@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCartsTable extends Migration
 {
-
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {

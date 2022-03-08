@@ -23,5 +23,4 @@ class CartController extends Controller
             'cart' => $this->cartService->getFromCookie(),
         ]);
     }
-
 }

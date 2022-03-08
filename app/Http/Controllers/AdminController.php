@@ -20,15 +20,15 @@ class AdminController extends Controller
 {
     public function index(): View
     {
-       $users=User::paginate(10);
-       //dd($users);
-    return view('users.index', compact('users'));
+        $users=User::paginate(10);
+        //dd($users);
+        return view('users.index', compact('users'));
     }
 
-public function show($user): View
+    public function show($user): View
     {
-       $user = User::findOrFail($user);
-       return view('users.show')->with(['user'=> $user]);
+        $user = User::findOrFail($user);
+        return view('users.show')->with(['user'=> $user]);
     }
 
     public function edit($user): View
@@ -37,10 +37,10 @@ public function show($user): View
         return view('users.edit')->with(['user'=> $user]);
     }
 
-    public function update(StoreUserRequest $request,User $user){
-
+    public function update(StoreUserRequest $request, User $user)
+    {
         $user= User::findOrFail($user);
         $user->save(request($request)->validated());
-       return redirect()->back()->with('success','Bien Tontolín, te quedo editado bien esta mondá');
-         }
+        return redirect()->back()->with('success', 'Bien Tontolín, te quedo editado bien esta mondá');
+    }
 }

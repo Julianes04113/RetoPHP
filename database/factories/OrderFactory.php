@@ -8,9 +8,8 @@ use App\Models\Order;
 
 class OrderFactory extends Factory
 {
-    protected $model = Order::class;
-
     use HasFactory;
+    protected $model = Order::class;
 
     protected $fillable = [
         'status',

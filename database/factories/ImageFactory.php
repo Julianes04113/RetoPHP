@@ -8,14 +8,13 @@ use App\Models\Image;
 
 class ImageFactory extends Factory
 {
-  
+    use HasFactory;
+
     protected $model = Image::class;
 
-    use HasFactory;
-    
     public function definition()
     {
-        $fileName=$this->faker->numberBetween(1,10) . '.jpg';
+        $fileName=$this->faker->numberBetween(1, 10) . '.jpg';
 
         return [
             'path' => "images/products/{$fileName}"
@@ -23,7 +22,7 @@ class ImageFactory extends Factory
     }
     public function user()
     {
-        $fileName=$this->faker->numberBetween(1,5) . '.jpg';
+        $fileName=$this->faker->numberBetween(1, 5) . '.jpg';
         return $this->state([
             'path' => "images/users/{$fileName}"
         ]);

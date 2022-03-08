@@ -6,13 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateProductsTable extends Migration
 {
-
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title',100);
-            $table->string('description',500);
+            $table->string('title', 100);
+            $table->string('description', 500);
             $table->unsignedBigInteger('price');
             $table->unsignedInteger('stock');
             $table->enum('status', ['available', 'unavailable'])->default('available');

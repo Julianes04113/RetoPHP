@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateProductablesTable extends Migration
 {
-
     public function up()
     {
         Schema::create('productables', function (Blueprint $table) {

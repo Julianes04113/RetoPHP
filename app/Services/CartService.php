@@ -6,32 +6,31 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Cookie;
 
 class cartService
-
 {
     protected $cookieName = 'cart';
 
-  
-    public function getFromCookie(){
 
+    public function getFromCookie()
+    {
         $cartId = Cookie::get($this->cookieName);
         $cart=Cart::find($cartId);
-        return $cart; 
+        return $cart;
     }
 
-	public function getFromCookieorCreate()
+    public function getFromCookieorCreate()
     {
-
         $cart=$this->getFromCookie();
 
         return $cart ?? Cart::create();
-    }	
+    }
 
     public function makeCookie(Cart $cart)
     {
-        return Cookie::make($this->cookieName, $cart->id, 7*24*60);    
+        return Cookie::make($this->cookieName, $cart->id, 7*24*60);
     }
 
-    public function countProducts(){
+    public function countProducts()
+    {
         $cart = $this->getFromCookie();
 
         if ($cart != null) {

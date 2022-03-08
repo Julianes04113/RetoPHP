@@ -18,13 +18,12 @@ class OrderController extends Controller
 
         $this->middleware('auth');
     }
-    
+
     public function create()
     {
         $cart = $this->cartService->getfromCookie();
 
-        if(!isset($cart)||$cart->products->isEmpty())
-        {
+        if (!isset($cart)||$cart->products->isEmpty()) {
             return redirect()->back()->withErrors("Su carrito está vacío, weba");
         }
 

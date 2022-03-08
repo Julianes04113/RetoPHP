@@ -12,46 +12,45 @@ use App\Models\Cart;
 
 class DatabaseSeeder extends Seeder
 {
-
     public function run()
     {
-       $users= User::factory(20)
+        $users= User::factory(20)
          ->create()
-         ->each(function($user){
-            $image=Image::factory()
+         ->each(function ($user) {
+             $image=Image::factory()
                ->user()
                ->make();
-            $user->image()->save($image);
+             $user->image()->save($image);
          });
 
-       $orders=Order::factory(10)
+        $orders=Order::factory(10)
          ->make()
-         ->each(function($order) use ($users) {
-            $order->customer_id = $users->random()->id;
-            $order->save();
-            $payment = Payment::factory()->make();
-            //Alternativa directa
+         ->each(function ($order) use ($users) {
+             $order->customer_id = $users->random()->id;
+             $order->save();
+             $payment = Payment::factory()->make();
+             //Alternativa directa
             //$payment->order_id = $order->id;
             //$payment->save();
             $order->payment()->save($payment);//Alternativa de relación
          });
 
-      $carts=Cart::factory(20)->create();
+        $carts=Cart::factory(20)->create();
 
-      $products = Product::factory(50)
+        $products = Product::factory(50)
          ->create()
-         ->each(function ($product) use ($orders,$carts){
-               $order=$orders->random();
-               $order->products()->attach([
-                  $product->id => ['quantity' =>mt_rand(1,3)]
+         ->each(function ($product) use ($orders, $carts) {
+             $order=$orders->random();
+             $order->products()->attach([
+                  $product->id => ['quantity' =>mt_rand(1, 3)]
                ]);
-               $cart = $carts->random();
-               $cart->products()->attach([
-                  $product->id => ['quantity' =>mt_rand(1,3)]
+             $cart = $carts->random();
+             $cart->products()->attach([
+                  $product->id => ['quantity' =>mt_rand(1, 3)]
                ]);
 
-               $images = Image::factory(mt_rand(2,4))->make();
-               $product->images()->saveMany($images);
+             $images = Image::factory(mt_rand(2, 4))->make();
+             $product->images()->saveMany($images);
          });
     }
 }

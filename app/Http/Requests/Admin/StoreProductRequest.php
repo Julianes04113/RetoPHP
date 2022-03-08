@@ -11,7 +11,7 @@ class StoreProductRequest extends FormRequest
     {
         return true;
     }
-    
+
     public function rules(): array
     {
         return [
@@ -25,7 +25,7 @@ class StoreProductRequest extends FormRequest
         ];
     }
 
-     public function messages(): array
+    public function messages(): array
     {
         return [
             'min' => 'El título debe tener al menos 5 caracteres, el stock obviamente es mayor a 1 y la descripción debe tener al menos 10 caracteres también',

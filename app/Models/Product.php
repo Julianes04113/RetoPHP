@@ -22,23 +22,26 @@ class Product extends Model
         'status',
     ];
 
-    public function carts(){
+    public function carts()
+    {
         return $this->morphedByMany(Cart::class, 'productable')->withPivot('quantity');
     }
 
-    public function orders(){
+    public function orders()
+    {
         return $this->morphedByMany(Order::class, 'productable')->withPivot('quantity');
     }
-    public function images(){
-        return $this->morphMany(Image::class,'imageable');
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function scopeFilter(Builder $query, string $keyword){
-        
-        if (!empty($keyword)){
-            return $query->where(function($query) use($keyword) {
-                $query->where('title','LIKE','%'.$keyword.'%')
-                      ->orWhere('description','LIKE','%'.$keyword.'%');
+    public function scopeFilter(Builder $query, string $keyword)
+    {
+        if (!empty($keyword)) {
+            return $query->where(function ($query) use ($keyword) {
+                $query->where('title', 'LIKE', '%'.$keyword.'%')
+                      ->orWhere('description', 'LIKE', '%'.$keyword.'%');
             });
         }
     }
@@ -47,5 +50,4 @@ class Product extends Model
     {
         return $this->pivot->quantity * $this->price;
     }
-
 }

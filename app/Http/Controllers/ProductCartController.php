@@ -10,14 +10,13 @@ use App\Services\cartService;
 
 class ProductCartController extends Controller
 {
-
     public $cartService;
 
     public function __construct(cartService $cartService)
     {
         $this->cartService = $cartService;
     }
- 
+
     public function store(Request $request, Product $product)
     {
         $cart=$this->cartService->getFromCookieorCreate();
@@ -42,5 +41,4 @@ class ProductCartController extends Controller
         $cookie = $this->cartService->makeCookie($cart);
         return redirect()->back()->cookie($cookie);
     }
-
 }
