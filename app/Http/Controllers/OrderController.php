@@ -7,6 +7,8 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Services\cartService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class OrderController extends Controller
 {
@@ -31,6 +33,22 @@ class OrderController extends Controller
     }
     public function store(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $order = $user->orders()->create([
+            'status' => 'pending',
+        ]);
+
+        $cart=$this->cartService->getfromCookie();
+
+        $cartProductsWithQuantity = $cart->products->mapWithKeys(function ($product){
+            $element[$product->id]=['quantity' => $product->pivot->quantity];
+            return $element;
+        });
+
+        $order->products()->attach($cartProductsWithQuantity->toArray());
+
+        return redirect()->route('orders.payments.create', ['order' => $order]);
+
     }
 }

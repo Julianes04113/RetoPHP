@@ -74,8 +74,15 @@
                             </tr>
                             @endforeach
                         </tbody>
-                     </table><div class="object-center">
+                     </table>
+                     <div class="object-center">
                                     <p class="text-lime-400 text-lg text-center font-bold whitespace-no-wrap"> Total de la orden = ${{$cart->total}}</p></div>
+                    <div class="flex-auto">
+                        <br>
+                        <form method="POST" action="{{route('orders.store')}}">
+                                @csrf
+                                <button type="submit" class="flex-1/2 text-white bg-red-300 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center">Pagar</button>
+                                </form>
                 </div>
             </div>
                  </div>

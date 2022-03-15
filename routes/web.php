@@ -27,6 +27,7 @@ Route::prefix('Market')
         Route::resource('products.cart','ProductCartController')->only('store', 'destroy');
         Route::resource('orders','OrderController')->only('create', 'store');
         Route::resource('carts','CartController')->only('index');
+        Route::resource('orders.payments','OrderPaymentController')->only('create', 'store');
 
     });
 
