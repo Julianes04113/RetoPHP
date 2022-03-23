@@ -31,6 +31,7 @@ class OrderController extends Controller
 
         return view('orders.create')->with(['cart'=>$cart]);
     }
+    
     public function store(Request $request)
     {
         $user = $request->user();
@@ -39,10 +40,10 @@ class OrderController extends Controller
             'status' => 'pending',
         ]);
 
-        $cart=$this->cartService->getfromCookie();
+        $cart=$this->cartService->getFromCookie();
 
         $cartProductsWithQuantity = $cart->products->mapWithKeys(function ($product){
-            $element[$product->id]=['quantity' => $product->pivot->quantity];
+            $element[$product->id] = ['quantity' => $product->pivot->quantity];
             return $element;
         });
 

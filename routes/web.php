@@ -12,6 +12,8 @@ Route::get('/dashboard', function () {return view('dashboard');})->middleware(['
 
 require __DIR__.'/auth.php';
 
+//Auth:routes();
+
 Route::prefix('Admin')
     ->middleware(['auth','verified','AdminMiddleware'])
     ->group( function(){
@@ -28,7 +30,9 @@ Route::prefix('Market')
         Route::resource('orders','OrderController')->only('create', 'store');
         Route::resource('carts','CartController')->only('index');
         Route::resource('orders.payments','OrderPaymentController')->only('create', 'store');
-
+        Route::post('/payments/pay', 'PaymentController@pay')->name('pay');
+        Route::get('/payments/approval', 'PaymentController@approval')->name('approval');
+        Route::get('/payments/cancelled', 'PaymentController@cancelled')->name('cancelled');
     });
 
 

@@ -29,6 +29,6 @@ class Order extends Model
     }
     public function getTotalAttribute()
     {
-        return $this->pivot->quantity * $this->price;
+        return $this->products->pluck('total')->sum();
     }
 }
