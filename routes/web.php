@@ -29,12 +29,12 @@ Route::prefix('Market')
         Route::resource('products.cart','ProductCartController')->only('store', 'destroy');
         Route::resource('orders','OrderController')->only('create', 'store');
         Route::resource('carts','CartController')->only('index');
-        Route::resource('orders.payments','OrderPaymentController')->only('create', 'store');
-        Route::post('/payments/pay', 'PaymentController@pay')->name('pay');
-        Route::get('/payments/approval', 'PaymentController@approval')->name('approval');
-        Route::get('/payments/cancelled', 'PaymentController@cancelled')->name('cancelled');
+        Route::resource('orders.payments','OrderPaymentController');
+        Route::post('orders.payments.webcheckout/{order}','OrderPaymentController@webcheckout')->name('orders.payments.webcheckout');
     });
-
+Route::get('/successfullRobery/{order}','OrderPaymentController@handle')->name('successfullRobery');
+Route::get('/unsuccessfullRobery','OrderPaymentController@cancelled')->name('unsuccessfullRobery');
+Route::get('/paymentslist/', 'PaymentsController@index')->name('paymentslist');
 
 
 

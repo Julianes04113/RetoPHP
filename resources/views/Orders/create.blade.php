@@ -77,11 +77,11 @@
                      </table>
                      <div class="object-center">
                                     <p class="text-lime-400 text-lg text-center font-bold whitespace-no-wrap"> Total de la orden = ${{$cart->total}}</p></div>
-                    <div class="flex-auto">
+                    <div class="flex-auto w-90 justify-self-center">
                         <br>
-                        <form method="POST" action="{{route('orders.store')}}">
+                        <form method="POST" action="{{route('orders.store')}}" class="w-90 justify-self-center">
                                 @csrf
-                                <button type="submit" class="flex-1/2 text-white bg-red-300 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center">Pagar</button>
+                    <button type="submit" class="text-black bg-cyan-300 hover:bg-cyan-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center ">Proceder al pago</button>
                                 </form>
                 </div>
             </div>

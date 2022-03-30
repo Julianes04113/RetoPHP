@@ -21,7 +21,6 @@ class AdminController extends Controller
     public function index(): View
     {
         $users=User::paginate(10);
-        //dd($users);
         return view('users.index', compact('users'));
     }
 

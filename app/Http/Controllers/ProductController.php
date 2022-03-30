@@ -38,16 +38,6 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request): RedirectResponse
     {
         $product = Product::create($request->validated());
-        /*-- $product = new Product();
-         $product->title=$request->input('title');
-         $product->description=$request->input('description');
-         $product->price=$request->input('price');
-         $product->stock=$request->input('stock');
-         $product->status=$request->input('status');
-         $images = Image::factory(mt_rand(2,4))->make();
-         $product->images()->saveMany($images);
-         $product->save(); */
-
         session()->flash('success', "Bien Tontolín, te quedo creado bien esta mondá");
         return redirect()->back()->with('success', 'Bien Tontolín, te quedo creado bien esta mondá');
     }

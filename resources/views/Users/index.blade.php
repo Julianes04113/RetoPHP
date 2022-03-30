@@ -50,7 +50,13 @@
                 <div class="text-sm text-gray-900">{{$user->email}}</div>
               </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">{{$user->admin_since}}</div>
+                <div class="text-sm text-gray-900">
+                  @if($user->admin_since!=null)
+                Administrador
+                @else
+                Comprador
+                @endif
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 @if($user->disabled_at==null)

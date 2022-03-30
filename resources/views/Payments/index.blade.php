@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Tu Carrito') }}
+            {{ __('Tus "Pagos":') }}
         </h2>
     </x-slot>
 
@@ -12,10 +12,6 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <x-sucess-message />
                   <!-- content-->
-                  @inject('cartService', 'App\Services\cartService')
-                  	@if(!isset($cart)|| $cart->products->isEmpty())
-                    No tienes nada agregado en el carrito aún. Déjate atracar por nuestros precios ahora mismo!
-                    @else
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                     <table class="min-w-full leading-normal">
@@ -23,23 +19,19 @@
                             <tr>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Nombre
+                                    Pago
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Descripción
+                                    Valor Total
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Precio
+                                    Estado
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Cantidad
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Borrar Producto
+                                    Acción
                                 </th>
                             </tr>
                         </thead>
@@ -61,9 +53,6 @@
                                     </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap">{{$products->description}}</p>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap">
                                         {{$products->price}}
                                     </p>
@@ -77,20 +66,24 @@
                                     </span>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <form method="POST" action="{{route('products.cart.destroy', ['cart'=>$cart->id, 'product'=>$products->id])}}">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="text-white bg-red-300 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center">Borrar del Carrito</button>
-                                </form>
+                                    <p class="text-black text-lg font-bold whitespace-no-wrap">
+                                        {{$products->pivot->quantity * $products->price}}
+                                    </p>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                     </table>
+                     <div class="object-center">
+                                    <p class="text-lime-400 text-lg text-center font-bold whitespace-no-wrap"> Total de la orden = ${{$cart->total}}</p></div>
+                    <div class="flex-auto w-90 justify-self-center">
+                        <br>
+                        <form method="POST" action="{{route('orders.store')}}" class="w-90 justify-self-center">
+                                @csrf
+                    <button type="submit" class="text-black bg-cyan-300 hover:bg-cyan-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center ">Proceder al pago</button>
+                                </form>
                 </div>
             </div>
-                    <a href="{{route('orders.create')}}" class="bg-auto color">
-                    <button type="submit" class="text-black bg-lime-300 hover:bg-lime-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center">¿Estás seguro de comprar? Crea la orden acá</button></a>
-                    @endif
                  </div>
         </div>
     </div>

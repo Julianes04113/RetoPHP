@@ -38,6 +38,7 @@
                         ({{$cartService->countProducts()}})
                     </x-nav-link>
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->

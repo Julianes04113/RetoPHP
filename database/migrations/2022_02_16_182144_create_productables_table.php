@@ -12,7 +12,6 @@ class CreateProductablesTable extends Migration
             $table->bigInteger('product_id')->unsigned();
             $table->integer('quantity')->unsigned();
             $table->morphs('productable');
-
             $table->foreign('product_id')->references('id')->on('products');
         });
     }

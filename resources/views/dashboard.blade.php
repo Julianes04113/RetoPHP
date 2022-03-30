@@ -12,7 +12,7 @@
 @if(session()->has('success'))
 Gracias por dejarse atracar. Vuelvas prontos!
 @else
-                    Se ha logeado correctamente!
+                    Malvenido al peor supermercado que puede encontrar (si es que usted sabe buscar)!
                     @endif
                 </div>
                 <ul>

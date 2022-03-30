@@ -31,4 +31,10 @@ class Order extends Model
     {
         return $this->products->pluck('total')->sum();
     }
+    public function scopeFilter(Builder $query)
+    {
+        return $query->where('customer_id', '==','user_id');
+        
+    }
+
 }

@@ -18,7 +18,6 @@ trait ConsumesExternalServices
             $this->resolveAuthorization($queryParams, $formParams, $headers);
         }
 
-        //pregunta si es un Json request y lo asigna igualmente a form_params
         $response = $client->request($method, $requestUrl, [
             $isJsonRequest ? 'json' : 'form_params' => $formParams,
             'headers' => $headers,
@@ -27,10 +26,9 @@ trait ConsumesExternalServices
 
         $response = $response->getBody()->getContents();
 
-
-        if (method_exists($this, 'decodeResponse')) {
+        /*if (method_exists($this, 'decodeResponse')) {
             $response = $this->decodeResponse($response);
-        }
+        }*/
 
         return $response;
     }

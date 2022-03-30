@@ -41,10 +41,38 @@ class PayPalService
     {
         $order = $this->createOrder($request->value, $request->currency);
         //crea una coleccion de laravel y buscamos los links
+        //dd($order);
         $orderLinks = collect($order->links);
+        //crea una variable con el contenido del link de aprobación
+        //dd($orderLinks);
         $approve =$orderLinks->where('rel', 'approve')->first();
+        
+        session()->put('approvalId', $order->id);
         return redirect ($approve->href);
     }
+
+      public function handleApproval()
+    {
+        if (session()->has('approvalId')) {
+            $approvalId = session()->get('approvalId');
+
+            $payment = $this->capturePayment($approvalId);
+
+            $name = $payment->payer->name->given_name;
+            $payment = $payment->purchase_units[0]->payments->captures[0]->amount;
+            $amount = $payment->value;
+            $currency = $payment->currency_code;
+
+            return redirect()
+                ->route('dashboard')
+                ->withSuccess(['payment' => "Gracias, {$name}. Recibimos los {$amount}{$currency} que no querías"]);
+        }
+
+        return redirect()
+            ->route('dashboard')
+            ->withErrors('Este servicio es algo maaaalo, maaaaaaaalo');
+    }
+
 
    public function createOrder($value, $currency)
     {
@@ -80,4 +108,5 @@ class PayPalService
             ],
         );
     }
+
 }
