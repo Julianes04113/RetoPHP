@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\cartService;
 use App\Services\WebService;
+use GuzzleHttp\Psr7\Request as Psr7Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Support\Facades\View as FacadesView;
 
 class OrderPaymentController extends Controller
 {
@@ -15,43 +19,34 @@ class OrderPaymentController extends Controller
 
     public $WebService;
 
-    public function __construct(cartService $cartService, WebService $WebService){
+    public function __construct(cartService $cartService)
+    {
         $this->cartService = $cartService;
         $this->WebService = resolve(WebService::class);
         $this->middleware('auth');
     }
 
-    public function create(Order $order)
+    public function create(Order $order): View
     {
-        session(['order_id' => $order->id]);
-        //dd($order);
         return view('payments.create')->with([
             'order'=> $order,
         ]);
     }
 
-    public function Webcheckout(Request $request, Order $order)
+    public function webcheckout(Request $request, Order $order)
     {
-    return $this->WebService->createRequest($request, $order);
+        return $this->WebService->createRequest($request, $order);
     }
 
     public function handle(Response $response, Request $request, Order $order)
     {
-        //dd($order);
-
         $requestId = session()->get('requestId');
 
-        $requestedInfo = $this->WebService->getRequestInformation($requestId, $order); 
-
-        //dd($requestId, $requestedInfo);
-        //$is_payed es un objeto, no un array
+        $requestedInfo = $this->WebService->getRequestInformation($requestId, $order);
 
         $is_payed = $requestedInfo->status->status;
 
-        //el objeto order se pierde en la transacción, cómo recuperarlo? le he inyectado en todos los métodos
-        if($is_payed="APPROVED")
-            {
-            //dd($order);
+        if ($is_payed=="APPROVED") {
             $order->payment()->create([
                 'amount' => $order->total,
                 'payed_at' => now(),
@@ -69,18 +64,27 @@ class OrderPaymentController extends Controller
 
                 return redirect()->route('dashboard')->withSuccess('Gracias por dejarse atracar. Vuelvas prontos!');
             }
-        else
-            {
+        else {
+            $order->payment()->create([
+                    'amount' => $order->total,
+                    'payed_at' => now(),
+                    'requestId' => $requestId,
+                    'requestStatus' => $is_payed,
+                    'requestDate' => now(),
+            ]);
+            $order->status = 'payed';
+
                 return redirect()->route('dashboard')->withErrors('Algo salió mal, muy mal!');
             }
+        return redirect()
+            ->route('dashboard')
+            ->withErrors('¿Porqué cancela el pago? diga a ver pues');
+       
 
     }
 
     public function cancelled()
-    {
-        return redirect()
-            ->route('dashboard')
-            ->withErrors('¿Porqué cancela el pago? diga a ver pues');
+    { 
     }
         
 }

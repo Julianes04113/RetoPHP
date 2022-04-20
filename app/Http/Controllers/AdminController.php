@@ -36,7 +36,7 @@ class AdminController extends Controller
         return view('users.edit')->with(['user'=> $user]);
     }
 
-    public function update(StoreUserRequest $request, User $user)
+    public function update(StoreUserRequest $request, User $user): RedirectResponse
     {
         $user= User::findOrFail($user);
         $user->save(request($request)->validated());

@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Payment;
 use App\Models\User;
+use App\Models\Payment;
 use App\Models\Product;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -33,8 +34,6 @@ class Order extends Model
     }
     public function scopeFilter(Builder $query)
     {
-        return $query->where('customer_id', '==','user_id');
-        
+        return $query->where('customer_id', '==', 'user_id');
     }
-
 }

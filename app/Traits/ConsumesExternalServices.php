@@ -9,14 +9,7 @@ trait ConsumesExternalServices
 {
     public function makeRequest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [], $isJsonRequest = false)
     {
-        //crea nuevo cliente de Guzzle y aplica la baseUri en ENV
-        $client = new Client([
-            'base_uri' => $this->baseUri,
-        ]);
-
-        if (method_exists($this, 'resolveAuthorization')) {
-            $this->resolveAuthorization($queryParams, $formParams, $headers);
-        }
+        $client = new Client();
 
         $response = $client->request($method, $requestUrl, [
             $isJsonRequest ? 'json' : 'form_params' => $formParams,
@@ -25,10 +18,6 @@ trait ConsumesExternalServices
         ]);
 
         $response = $response->getBody()->getContents();
-
-        /*if (method_exists($this, 'decodeResponse')) {
-            $response = $this->decodeResponse($response);
-        }*/
 
         return $response;
     }

@@ -9,7 +9,6 @@ class cartService
 {
     protected $cookieName = 'cart';
 
-
     public function getFromCookie()
     {
         $cartId = Cookie::get($this->cookieName);

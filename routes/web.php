@@ -6,41 +6,35 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserProductController;
 
-Route::get('/', function () {return view('welcome');});
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/dashboard', function () {return view('dashboard');})->middleware(['auth','verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth','verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-//Auth:routes();
-
 Route::prefix('Admin')
     ->middleware(['auth','verified','AdminMiddleware'])
-    ->group( function(){
+    ->group(function () {
         Route::resource('products', 'ProductController');
-        Route::resource('users','AdminController');
+        Route::resource('users', 'AdminController');
     });
 
 Route::prefix('Market')
     ->middleware(['auth','verified','StatusMiddleware'])
-    ->group( function(){
-        Route::resource('products', 'UserProductController')->only('index','show');
+    ->group(function () {
+        Route::resource('products', 'UserProductController')->only('index', 'show');
         Route::view('/MyProfile', 'Market.MyProfile.Profile')->name('MyProfile');
-        Route::resource('products.cart','ProductCartController')->only('store', 'destroy');
-        Route::resource('orders','OrderController')->only('create', 'store');
-        Route::resource('carts','CartController')->only('index');
-        Route::resource('orders.payments','OrderPaymentController');
-        Route::post('orders.payments.webcheckout/{order}','OrderPaymentController@webcheckout')->name('orders.payments.webcheckout');
+        Route::resource('products.cart', 'ProductCartController')->only('store', 'destroy');
+        Route::resource('orders', 'OrderController')->only('create', 'store');
+        Route::resource('carts', 'CartController')->only('index');
+        Route::resource('orders.payments', 'OrderPaymentController');
+        Route::post('orders.payments.webcheckout/{order}', 'OrderPaymentController@webcheckout')
+        ->name('orders.payments.webcheckout');
     });
-Route::get('/successfullRobery/{order}','OrderPaymentController@handle')->name('successfullRobery');
-Route::get('/unsuccessfullRobery','OrderPaymentController@cancelled')->name('unsuccessfullRobery');
+Route::get('/successfullRobery/{order}', 'OrderPaymentController@handle')->name('successfullRobery');
+Route::get('/unsuccessfullRobery', 'OrderPaymentController@cancelled')->name('unsuccessfullRobery');
 Route::get('/paymentslist/', 'PaymentsController@index')->name('paymentslist');
-
-
-
-
-
-
-//Route::fallback(function () {
-  //  dd('La Cagaste');
-//});
