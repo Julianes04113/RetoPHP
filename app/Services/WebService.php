@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Traits\ConsumesExternalServices;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Order;
 
@@ -19,20 +18,15 @@ class WebService
 
     public function __construct()
     {
-        $seed= date('c');
+        $seed = date('c');
         $this->seed = $seed;
         $this->nonce = bin2hex(random_bytes(16));
-        $this->tranKey = base64_encode(hash('sha1', $this->nonce.$seed.config('webcheckout.tranKey'), true));
-    }
-    
-    public function decodeResponse($response)
-    {
-        return json_decode($response);
+        $this->tranKey = base64_encode(hash('sha1', $this->nonce . $seed . config('webcheckout.tranKey'), true));
     }
 
     public function createRequest(Request $request, Order $order)
     {
-        $req = $this->makeRequest(
+        $createdRequest = $this->makeRequest(
             'POST',
             'https://dev.placetopay.com/redirection/api/session',
             [],
@@ -42,30 +36,36 @@ class WebService
                     'login' => config('webcheckout.login'),
                     'tranKey' => $this->tranKey,
                     'nonce' => base64_encode($this->nonce),
-                    'seed' => $this->seed],
+                    'seed' => $this->seed
+                ],
                 'payment' => [
-                    'reference' => 'Mercatodo',
+                    'reference' => 'Mercatodo: El peor supermercado',
                     'description' => 'Tu carrito de robo irresponsable',
                     'amount' => [
                         'currency' => 'COP',
-                        'total' => "{$request->value}"],
-                    'allowPartial' => false],
+                        'total' => "{$request->value}"
+                    ],
+                    'allowPartial' => false
+                ],
                 'expiration' => Carbon::now()->addDay(2)->toIso8601String(),
                 'returnUrl' => route('successfullRobery', $order),
                 'ipAddress' => app(Request::class)->getClientIp(),
                 'userAgent' => substr(app(Request::class)->header('User-Agent'), 0, 255),
             ],
             [
-              'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json'
             ],
-            $isJsonRequest = true
         );
-        
-        $resp = json_decode($req);
 
-        session(['requestId' => $resp->requestId]);
+        $decodedRequest = json_decode($createdRequest);
 
-        return redirect($resp->processUrl);
+        $order->requestId = $decodedRequest->requestId;
+
+        $order->processUrl = $decodedRequest->processUrl;
+
+        $order->save();
+
+        return redirect($decodedRequest->processUrl);
     }
 
     public function getRequestInformation($requestId, Order $order)
@@ -79,12 +79,12 @@ class WebService
                     'login' => config('webcheckout.login'),
                     'tranKey' => $this->tranKey,
                     'nonce' => base64_encode($this->nonce),
-                    'seed' => $this->seed],
+                    'seed' => $this->seed
+                ],
             ],
             [
                 'Content-Type' => 'application/json'
             ],
-            $isJsonRequest = true,
         );
         return json_decode($info);
     }

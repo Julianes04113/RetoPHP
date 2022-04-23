@@ -9,7 +9,6 @@
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -18,9 +17,15 @@
                 </div>
                 <!--Products button-->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @if(auth()->user()->admin_since!=null)
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                         {{ __('Productos') }}
                     </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('UserProduct.index')" :active="request()->routeIs('products.index')">
+                            {{ __('Productos') }}
+                        </x-nav-link>
+                    @endif
                 </div>
                 <!--Users button-->
                 @if(auth()->user()->admin_since!=null)
@@ -38,9 +43,7 @@
                         ({{$cartService->countProducts()}})
                     </x-nav-link>
                 </div>
-
             </div>
-
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -55,13 +58,11 @@
                             </div>
                         </button>
                     </x-slot>
-
                     <x-slot name="content">
                         <!-- Authentication -->
-                            <x-dropdown-link :href="route('MyProfile')">
+                            <x-dropdown-link :href="route('Profile')">
                                 {{ __('Mi Perfil') }}
                             </x-dropdown-link>
-
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"
@@ -93,7 +94,7 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('MyProfile')">
+            <x-responsive-nav-link :href="route('Profile')">
                 {{ __('Mi Perfil') }}
             </x-responsive-nav-link>
         </div>

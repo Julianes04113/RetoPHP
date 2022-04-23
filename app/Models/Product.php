@@ -40,8 +40,8 @@ class Product extends Model
     {
         if (!empty($keyword)) {
             return $query->where(function ($query) use ($keyword) {
-                $query->where('title', 'LIKE', '%'.$keyword.'%')
-                      ->orWhere('description', 'LIKE', '%'.$keyword.'%');
+                $query->where('title', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('description', 'LIKE', '%' . $keyword . '%');
             });
         }
     }

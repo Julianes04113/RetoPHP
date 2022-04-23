@@ -3,25 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Resources\views\Products\index;
 use App\Http\Requests\Admin\StoreProductRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Eloquent\Collection;
 use App\Models\Image;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
     public function index(Request $request): View
     {
-        $productSearch=trim($request->get('ProductSearchBar'));
+        $productSearch = trim($request->get('ProductSearchBar'));
 
         $searched = Product::select('id', 'title', 'description', 'price', 'stock', 'status')
             ->filter($productSearch)
@@ -46,12 +38,12 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($product);
         $images = Image::select('imageable_id')->where('imageable_id', 'LIKE', '$product->id');
-        return view('products.show')->with(['product'=> $product]);
+        return view('products.show')->with(['product' => $product]);
     }
 
     public function edit($product): View
     {
-        return view('products.edit')->with(['product'=> Product::findOrFail($product)]);
+        return view('products.edit')->with(['product' => Product::findOrFail($product)]);
     }
 
     public function update(StoreProductRequest $request, Product $product): RedirectResponse
@@ -62,7 +54,7 @@ class ProductController extends Controller
 
     public function destroy($product): View
     {
-        $product=Product::findOrFail($product);
+        $product = Product::findOrFail($product);
         $product->delete();
         return view('products.deleted');
     }

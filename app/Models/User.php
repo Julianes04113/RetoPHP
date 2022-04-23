@@ -42,10 +42,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Order::class, 'customer_id');
     }
 
-    public function payments()
+    /*public function payments()
     {
         return $this->HasManyThrough(Payment::class, Order::class, 'customer_id');
-    }//Payments debe tener una llave foránea del modelo intermedio (order)
+    }//Payments debe tener una llave foránea del modelo intermedio (order)*/
 
     public function image()
     {
@@ -60,5 +60,17 @@ class User extends Authenticatable implements MustVerifyEmail
                       ->orWhere('email', 'LIKE', '%'.$keyword.'%');
             });
         }
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function getProfileImageAttribute()
+    {
+        return $this->image
+        ? "images/{$this->image->path}"
+        : "images/users/1.jpg";
     }
 }

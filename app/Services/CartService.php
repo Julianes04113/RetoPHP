@@ -12,20 +12,20 @@ class cartService
     public function getFromCookie()
     {
         $cartId = Cookie::get($this->cookieName);
-        $cart=Cart::find($cartId);
+        $cart = Cart::find($cartId);
         return $cart;
     }
 
     public function getFromCookieorCreate()
     {
-        $cart=$this->getFromCookie();
+        $cart = $this->getFromCookie();
 
         return $cart ?? Cart::create();
     }
 
     public function makeCookie(Cart $cart)
     {
-        return Cookie::make($this->cookieName, $cart->id, 7*24*60);
+        return Cookie::make($this->cookieName, $cart->id, 7 * 24 * 60);
     }
 
     public function countProducts()

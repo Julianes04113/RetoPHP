@@ -10,10 +10,10 @@ class AdminMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->admin_since<>null) {
+        if (auth()->user()->admin_since != null) {
             return $next($request);
         }
 
-        return redirect()->route('dashboard')->with('error', 'No estás autorizado para entrar como Admin');
+        return redirect()->route('dashboard')->withErrors('No estás autorizado para entrar como Admin');
     }
 }

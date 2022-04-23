@@ -12,10 +12,10 @@
 
                   <!--Busqueda-->
 <div class="basis-1/2 mr-2 my-2 object-center self-center"><form action="{{route('products.index')}}" method="GET">@csrf
-  <input type="search" name="UProductSearchBar" class="bg-purple-white shadow rounded border-2 object-center" placeholder="Buscar un producto por nombre o descripción" value="{{$productSearch}}"></form>
+  <input type="search" name="UProductSearchBar" class="bg-purple-white w-1/2 shadow rounded border-2 object-center" placeholder="Buscar un producto por nombre o descripción" value="{{$productSearch}}"></form>
 </div>
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                    <x-sucess-message />
+                    <x-success-message />
                     <div class="bg-grey-light py-8 items-stretch grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2">
 @foreach($searched as $products)
 @include('components.productcard')

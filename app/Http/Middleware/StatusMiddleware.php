@@ -10,9 +10,10 @@ class AdminMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->disabled_at <>null) {
+        if (auth()->user()->disabled_at != null) {
             return $next($request);
         }
-        return redirect()->route('dashboard')->with('error', 'No estás autorizado para entrar, contacte al Administrador del sitio');
+        return redirect()->route('dashboard')
+            ->withErrors('No estás autorizado para entrar, contacte al Administrador del sitio');
     }
 }

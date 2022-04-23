@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Cart;
-use App\Models\Product;
 use App\Services\cartService;
 use Illuminate\Contracts\View\View;
 
@@ -16,7 +13,6 @@ class CartController extends Controller
     {
         $this->cartService = $cartService;
     }
-
 
     public function index(): View
     {

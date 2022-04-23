@@ -23,7 +23,7 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'min' => 'El título debe tener al menos 5 caracteres, el stock obviamente es mayor a 1 y la descripción debe tener al menos 10 caracteres también',
+            'min' => 'Debe contener al menos 5 caracteres y un máximo de 100',
             'required' => 'Esto va sí o sí, le guste o no'
         ];
     }

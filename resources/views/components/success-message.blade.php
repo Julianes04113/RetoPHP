@@ -5,7 +5,7 @@
         </div>
 
         <ul class="mt-3 list-disc list-inside text-sm text-lime-600">
-           {{session('success') }}
+           {{session('success')}}
         </ul>
     </div>
 @endif

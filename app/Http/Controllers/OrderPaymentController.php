@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\cartService;
 use App\Services\WebService;
-use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Request as FacadesRequest;
-use Illuminate\Support\Facades\View as FacadesView;
 
 class OrderPaymentController extends Controller
 {
@@ -29,7 +25,7 @@ class OrderPaymentController extends Controller
     public function create(Order $order): View
     {
         return view('payments.create')->with([
-            'order'=> $order,
+            'order' => $order,
         ]);
     }
 
@@ -40,51 +36,29 @@ class OrderPaymentController extends Controller
 
     public function handle(Response $response, Request $request, Order $order)
     {
-        $requestId = session()->get('requestId');
-
-        $requestedInfo = $this->WebService->getRequestInformation($requestId, $order);
+        $requestedInfo = $this->WebService->getRequestInformation($order->requestId, $order);
 
         $is_payed = $requestedInfo->status->status;
 
-        if ($is_payed=="APPROVED") {
-            $order->payment()->create([
-                'amount' => $order->total,
-                'payed_at' => now(),
-                'requestId' => $requestId,
-                'requestStatus' => $is_payed,
-                'requestDate' => now(),
-            ]);
-            $order->status = 'payed';
+        $order->create([
+            'amount' => $order->total,
+            'requestId' => $order->requestId,
+            'requestStatus' => $is_payed,
+        ]);
+        $order->status = $is_payed;
+        $order->save();
 
-            $order->save();
-
-            session()->forget(['requestId','order_id']);
-
+        if ($is_payed == "APPROVED") {
             $this->cartService->getFromCookie()->products()->detach();
+        }
 
-                return redirect()->route('dashboard')->withSuccess('Gracias por dejarse atracar. Vuelvas prontos!');
-            }
-        else {
-            $order->payment()->create([
-                    'amount' => $order->total,
-                    'payed_at' => now(),
-                    'requestId' => $requestId,
-                    'requestStatus' => $is_payed,
-                    'requestDate' => now(),
-            ]);
-            $order->status = 'payed';
-
-                return redirect()->route('dashboard')->withErrors('Algo salió mal, muy mal!');
-            }
-        return redirect()
-            ->route('dashboard')
-            ->withErrors('¿Porqué cancela el pago? diga a ver pues');
-       
-
+        return redirect()->route('dashboard')->flash('Algo', 'algo sucedió');
     }
 
     public function cancelled()
-    { 
+    {
+        return redirect()
+            ->route('dashboard')
+            ->withErrors('¿Porqué cancela el pago? diga a ver pues');
     }
-        
 }

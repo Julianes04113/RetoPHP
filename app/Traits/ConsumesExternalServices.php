@@ -3,16 +3,15 @@
 namespace App\Traits;
 
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 
 trait ConsumesExternalServices
 {
-    public function makeRequest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [], $isJsonRequest = false)
+    public function makeRequest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [])
     {
         $client = new Client();
 
         $response = $client->request($method, $requestUrl, [
-            $isJsonRequest ? 'json' : 'form_params' => $formParams,
+            'form_params' => $formParams,
             'headers' => $headers,
             'query' => $queryParams,
         ]);

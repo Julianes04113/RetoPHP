@@ -27,22 +27,22 @@ class OrderController extends Controller
     {
         $cart = $this->cartService->getFromCookie();
 
-        if (!isset($cart)||$cart->products->isEmpty()) {
+        if (!isset($cart) || $cart->products->isEmpty()) {
             return redirect()->back()->withErrors("Su carrito está vacío, weba");
         }
 
-        return view('orders.create')->with(['cart'=>$cart]);
+        return view('orders.create')->with(['cart' => $cart]);
     }
-    
+
     public function store(Request $request): RedirectResponse
     {
         $user = $request->user();
 
         $order = $user->orders()->create([
-            'status' => 'pending',
+            'status' => 'PENDING',
         ]);
 
-        $cart=$this->cartService->getFromCookie();
+        $cart = $this->cartService->getFromCookie();
 
         $cartProductsWithQuantity = $cart->products->mapWithKeys(function ($product) {
             $element[$product->id] = ['quantity' => $product->pivot->quantity];
