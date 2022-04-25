@@ -24,7 +24,10 @@
                             Deshabilitado
                         @else
                             Habilitado
-                        @endif  
+                        @endif
+                        @if ($image =! null)
+                        <img class="h-20 w-20" src="{{asset(Auth::user()->profile_image)}}" alt="{{Auth::user()->name}}">
+                        @endif
                         <br><a href="{{route('users.edit', ['user'=> $user->id]) }}" type="button" class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Editar Usuario</a>
                     </p>
                 </div>

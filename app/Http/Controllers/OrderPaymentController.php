@@ -40,19 +40,23 @@ class OrderPaymentController extends Controller
 
         $is_payed = $requestedInfo->status->status;
 
-        $order->create([
-            'amount' => $order->total,
-            'requestId' => $order->requestId,
-            'requestStatus' => $is_payed,
-        ]);
         $order->status = $is_payed;
+        $order->amount = $requestedInfo->payment->amount->total;
         $order->save();
 
-        if ($is_payed == "APPROVED") {
+        if ($is_payed == 'APPROVED') {
             $this->cartService->getFromCookie()->products()->detach();
-        }
 
-        return redirect()->route('dashboard')->flash('Algo', 'algo sucedió');
+            return redirect()->route('dashboard')
+                ->with(
+                    'success',
+                    'Si se siente estafado, favor enviar correo a yaper...yaperdio@nohaydevoluciones.com'
+                );
+        } elseif ($is_payed == 'PENDING') {
+            return redirect()->route('dashboard')->withErrors('Su "pago" quedó pendiente. Favor revisar en 5 minutos...');
+        } else {
+            return redirect()->route('dashboard')->withErrors('');
+        }
     }
 
     public function cancelled()

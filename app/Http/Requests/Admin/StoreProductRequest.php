@@ -20,8 +20,7 @@ class StoreProductRequest extends FormRequest
             'stock' => ['required', 'integer', 'min:0'],
             'description' => ['required', 'min:10', 'max:500'],
             'status' => ['required'],
-            'images' => ['required', 'array'],
-            'images.*' => ['image']
+            'image' => ['required','image'],
         ];
     }
 

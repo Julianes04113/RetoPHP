@@ -20,7 +20,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1 class="text-center text-xl text-lime-500">Crear un producto</h1>
                     <div> <x-auth-validation-errors class="mb-4" :errors="$errors" /></div>
-                    <div> <x-sucess-message /></div>
+                    <div> <x-success-message /></div>
 
                     
                     <form method="POST" action="{{route('products.store') }}" enctype="multipart/form-data">
@@ -71,7 +71,7 @@
     transition
     ease-in-out
     m-0
-    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="images" name="images">
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="image" name="image">
   </div>
 </div>
 

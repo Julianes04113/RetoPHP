@@ -27,28 +27,26 @@
     <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Nombre:</span>
     <input name="name" class="border border-2 rounded-r px-4 py-2 w-full" type="text" placeholder="Ingrese el nombre del Usuario" value="{{$user->name}}" />
 </div>
-                         <!-- Email -->
-<div class="flex">
-    <span class="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">Email:</span>
-    <input name="email" class="border border-2 rounded-r px-4 py-2 w-full" type="text" placeholder="Ingrese el correo del Usuario" value="{{$user->email}}" />
-</div>
-
 <!--Rol-->
 <div class="w-full flex flex-col mb-3">
 <label class="font-semibold text-gray-800 py-2">Rol</label>
-<select name="admin_since" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
-<option value="{{null}}">Usuario</option>
+<select name="admin_since" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full">
+<option value="null">Usuario</option>
 <option value="{{now()}}">Admin</option></select>
 <!--Habilitación-->
 <div class="w-full flex flex-col mb-3">
 <label class="font-semibold text-gray-800 py-2">Estado</label>
 <select name="disabled_at" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
-<option value="{{null}}" {{$user->disabled_at == null ? 'selected' : ''}}>Habilitado</option>
-<option value="{{now()}}" {{$user->disabled_at != null ? 'selected' : ''}}>No Habilitado</option></select>
+<option value="null">Habilitado</option>
+<option value="{{now()}}">No Habilitado</option></select>
 <button class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Editar Usuario</button>
 </div>
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                    <x-sucess-message />
+                    @if(session()->has('success'))
+                    <ul class="mt-3 list-disc list-inside text-sm text-lime-600">
+                        {{session('success')}}
+                     </ul>
+                     @endif
 
                         </form>
                 </div>

@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   </head>
   <body>
-  
     <div class="bg-white rounded shadow hover:shadow-md duration-4">
       <div class="flex flex-row justify-between uppercase font-bold text-blue-dark border-b p-6">
         <p>{{$products->title}}<p>
@@ -24,17 +23,14 @@
           <span class="uppercase bg-green text-lime-500 font-bold p-2 text-xs shadow rounded">Precio: ${{$products->price}}</span>  
           <span class="uppercase bg-yellow-dark text-grey-darkest font-bold p-2 text-xs shadow rounded">Cantidad disponible: {{$products->stock}}</span>  
         </div>
-                <form method="POST" action="{{route('products.cart.store', ['product'=>$products->id])}}" class="uppercase self-end bg-green font-bold text-white px-6 py-4 rounded hover:bg-green-dark duration-4">@csrf
+            <form method="POST" action="{{route('products.cart.store', ['product'=>$products->id])}}" class="uppercase self-end bg-green font-bold text-white px-6 py-4 rounded hover:bg-green-dark duration-4">
+                @csrf
           <button class="bg-lime-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">
             Agregar al carrito
           </button>           
           </form>
-      </div>
-      <div class="p-6 text-grey-darker text-justify flex flex-row justify-end border-t">
-        <!--<button class="uppercase self-end text-blue mx-8 text-sm hover:text-blue-dark duration-4 self-center">Detalle</button>-->
-
+          <a href="{{route('UserProduct.show', ['id'=> $products->id])}}" class="text-indigo-600 hover:text-indigo-900 rounded">Detalle</a>
       </div>
      </div>
-
   </body>
 </html>

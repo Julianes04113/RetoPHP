@@ -1,11 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserProductController;
-use App\Http\Controllers\UserEditController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,7 +23,7 @@ Route::prefix('Market')
     ->middleware(['auth', 'verified', 'StatusMiddleware'])
     ->group(function () {
         Route::get('products', 'UserProductController@index')->name('UserProduct.index');
-        Route::get('products/{$id}', 'UserProductController@show')->name('UserProduct.show');
+        Route::get('products/{id}', 'UserProductController@show')->name('UserProduct.show');
         Route::resource('products.cart', 'ProductCartController')->only('store', 'destroy');
         Route::resource('orders', 'OrderController')->only('create', 'store');
         Route::resource('carts', 'CartController')->only('index');

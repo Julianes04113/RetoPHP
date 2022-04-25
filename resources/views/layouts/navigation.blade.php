@@ -19,7 +19,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if(auth()->user()->admin_since!=null)
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Productos') }}
+                        {{ __('Administrar Productos') }}
                     </x-nav-link>
                     @else
                         <x-nav-link :href="route('UserProduct.index')" :active="request()->routeIs('products.index')">
@@ -31,7 +31,7 @@
                 @if(auth()->user()->admin_since!=null)
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                        {{ __('Usuarios') }}
+                        {{ __('Administrar Usuarios') }}
                     </x-nav-link>
                 </div>
                 @endif
@@ -43,7 +43,16 @@
                         ({{$cartService->countProducts()}})
                     </x-nav-link>
                 </div>
+                            <!-- Market for Admins-->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                @if(auth()->user()->admin_since!=null)
+                <x-nav-link :href="route('UserProduct.index')" :active="request()->routeIs('products.index')">
+                    {{ __('Productos (Market)') }}
+                </x-nav-link>
+                @endif
+                </div>
             </div>
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">

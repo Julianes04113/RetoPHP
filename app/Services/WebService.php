@@ -21,7 +21,7 @@ class WebService
         $seed = date('c');
         $this->seed = $seed;
         $this->nonce = bin2hex(random_bytes(16));
-        $this->tranKey = base64_encode(hash('sha1', $this->nonce . $seed . config('webcheckout.tranKey'), true));
+        $this->tranKey = base64_encode(hash('sha1', $this->nonce.$seed.config('webcheckout.tranKey'), true));
     }
 
     public function createRequest(Request $request, Order $order)
@@ -39,7 +39,7 @@ class WebService
                     'seed' => $this->seed
                 ],
                 'payment' => [
-                    'reference' => 'Mercatodo: El peor supermercado',
+                    'reference' => 'Mercatodo El peor supermercado',
                     'description' => 'Tu carrito de robo irresponsable',
                     'amount' => [
                         'currency' => 'COP',
@@ -55,13 +55,12 @@ class WebService
             [
                 'Content-Type' => 'application/json'
             ],
+            $isJsonRequest = true
         );
 
         $decodedRequest = json_decode($createdRequest);
 
         $order->requestId = $decodedRequest->requestId;
-
-        $order->processUrl = $decodedRequest->processUrl;
 
         $order->save();
 

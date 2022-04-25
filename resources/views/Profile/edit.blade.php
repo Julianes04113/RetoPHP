@@ -11,7 +11,9 @@
                 <div class="p-6 bg-white border-b border-gray-200">
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
             @if(session()->has('success'))
-                    {{session('success')}}
+            <ul class="mt-3 list-disc list-inside text-sm text-lime-600">
+                {{session('success')}}
+             </ul>
             @endif
             <form method="POST" action="{{ route('Profile.update') }}" enctype="multipart/form-data">
                 @csrf

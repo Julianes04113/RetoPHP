@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Http\Requests\Admin\StoreProductRequest;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Image;
+use App\Models\Product;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\StoreProductRequest;
 
 class ProductController extends Controller
 {
@@ -27,28 +28,40 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function store(StoreProductRequest $request): RedirectResponse
+    public function store(StoreProductRequest $request, Product $product): RedirectResponse
     {
         $product = Product::create($request->validated());
-        session()->flash('success', "Bien Tontolín, te quedo creado bien esta mondá");
+
+        $product->images()->create([
+                'path' => $request->image->store('products', 'images'),
+            ]);
+
         return redirect()->back()->with('success', 'Bien Tontolín, te quedo creado bien esta mondá');
     }
 
     public function show($product): View
     {
         $product = Product::findOrFail($product);
-        $images = Image::select('imageable_id')->where('imageable_id', 'LIKE', '$product->id');
-        return view('products.show')->with(['product' => $product]);
+        $query = Product::findOrFail($product->id)->images;
+        $images = $query->pluck('path')->toArray();
+        return view('products.show')->with(
+            ['product' => $product,
+            'images' => $images]
+        );
     }
 
-    public function edit($product): View
+    public function edit(Product $product): View
     {
-        return view('products.edit')->with(['product' => Product::findOrFail($product)]);
+        $query = Product::findOrFail($product->id)->images;
+        $images = $query->pluck('path')->toArray();
+        return view('products.edit')->with([
+            'product' => $product,
+            'images' => $images]);
     }
 
     public function update(StoreProductRequest $request, Product $product): RedirectResponse
     {
-        $product->update(request()->all());
+        $product->update($request->validated());
         return redirect()->back()->with('success', 'Bien Tontolín, te quedo editado bien esta mondá');
     }
 

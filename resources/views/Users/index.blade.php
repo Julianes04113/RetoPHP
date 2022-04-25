@@ -13,7 +13,7 @@
                   <!--Busqueda-->
 
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                    <x-sucess-message />
+                    <x-success-message />
                   <!-- UserTable-->
 <div class="flex flex-col">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

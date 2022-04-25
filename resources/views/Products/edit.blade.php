@@ -19,7 +19,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1>Editar un producto</h1>
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                    <x-sucess-message  />
+                    <x-success-message  />
                     <form method="POST" action="{{route('products.update', ['product'=> $product->id]) }}">
                            @csrf
                            @method('PUT')
@@ -52,7 +52,11 @@
 <option value="available" {{$product->status == 'available' ? 'selected' : ''}} >Disponible</option>
 <option value="unavailable" {{$product->status == 'unavailable' ? 'selected' : ''}}>Deshabilitado</option></select>
 </div>
-
+<div class="flex w-full flex-col mb-3">
+@foreach($product->images as $image)
+<img class="w-40 h-40 items-center" alt="img1" src="{{asset($image->path)}}" />
+@endforeach
+</div></div>
 <button class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Editar Producto</button>
 
                         </form>

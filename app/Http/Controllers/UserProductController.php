@@ -22,11 +22,12 @@ class UserProductController extends Controller
     public function show($product): View
     {
         $product = Product::findOrFail($product);
-
-        return view('products.show')
-            ->with(
-                ['product' => $product],
-                ['success', 'Producto agregado al carrito correctamente']
-            );
+        $query = Product::findOrFail($product->id)->images;
+        $images = $query->pluck('path')->toArray();
+        return view('UserProduct.show')
+            ->with([
+                'product' => $product,
+                'images' => $images
+            ]);
     }
 }

@@ -34,8 +34,12 @@
       @else
       <p class="text-base leading-4 mt-4 text-red-600 dark:text-red-300">No Disponible</p>
       @endif
-      <br>        
-      <a href="{{route('products.edit', ['product'=> $product->id])}}" class="text-indigo-600 hover:text-indigo-900">Editar</a>        
+      <form method="POST" action="{{route('products.cart.store', ['product'=> $product->id])}}" class="uppercase self-end bg-green font-bold text-white px-6 py-4 rounded hover:bg-green-dark duration-4">
+        @csrf
+  <button class="bg-lime-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">
+    Agregar al carrito
+  </button>           
+  </form>
     </div>
   </div>
 </div>
