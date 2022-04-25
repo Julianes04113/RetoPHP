@@ -33,5 +33,4 @@ Route::prefix('Market')
         Route::get('/Profile', 'UserEditController@edit')->name('Profile');
         Route::put('/Profile', 'UserEditController@update')->name('Profile.update');
         Route::get('/successfullRobery/{order}', 'OrderPaymentController@handle')->name('successfullRobery');
-        Route::get('/unsuccessfullRobery', 'OrderPaymentController@cancelled')->name('unsuccessfullRobery');
     });

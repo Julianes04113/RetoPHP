@@ -14,7 +14,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class CheckPaymentStatusJob //implements ShouldQueue ->la quiero inmediata
+class CheckPaymentStatusJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -22,7 +22,7 @@ class CheckPaymentStatusJob //implements ShouldQueue ->la quiero inmediata
 
     public function __construct()
     {
-        $this->idsToProcess = Order::select('requestId') //viene de order
+        $this->idsToProcess = Order::select('requestId')
                 ->where('requestStatus', 'LIKE', 'PENDING')
                 ->get();
     }

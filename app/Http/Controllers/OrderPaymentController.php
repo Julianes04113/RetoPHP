@@ -34,14 +34,13 @@ class OrderPaymentController extends Controller
         return $this->WebService->createRequest($request, $order);
     }
 
-    public function handle(Response $response, Request $request, Order $order)
+    public function handle(Request $request, Order $order)
     {
-        $requestedInfo = $this->WebService->getRequestInformation($order->requestId, $order);
+        $requestedInfo = $this->WebService->getRequestInformation($order);
 
         $is_payed = $requestedInfo->status->status;
 
         $order->status = $is_payed;
-        $order->amount = $requestedInfo->payment->amount->total;
         $order->save();
 
         if ($is_payed == 'APPROVED') {
@@ -53,16 +52,14 @@ class OrderPaymentController extends Controller
                     'Si se siente estafado, favor enviar correo a yaper...yaperdio@nohaydevoluciones.com'
                 );
         } elseif ($is_payed == 'PENDING') {
-            return redirect()->route('dashboard')->withErrors('Su "pago" quedó pendiente. Favor revisar en 5 minutos...');
+            $this->cartService->getFromCookie()->products()->detach();
+            return redirect()->route('dashboard')->with(
+                'success',
+                'Su "pago" quedó pendiente. Favor revisar en 5 minutos...'
+            );
         } else {
-            return redirect()->route('dashboard')->withErrors('');
+            return redirect()->route('dashboard')
+                ->with('success', 'oiga nea, porqué cancela? vaya reintente pues ome');
         }
-    }
-
-    public function cancelled()
-    {
-        return redirect()
-            ->route('dashboard')
-            ->withErrors('¿Porqué cancela el pago? diga a ver pues');
     }
 }

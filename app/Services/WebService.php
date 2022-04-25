@@ -62,16 +62,20 @@ class WebService
 
         $order->requestId = $decodedRequest->requestId;
 
+        $order->amount = $request->value;
+
         $order->save();
 
         return redirect($decodedRequest->processUrl);
     }
 
-    public function getRequestInformation($requestId, Order $order)
+    public function getRequestInformation(Order $order)
     {
+        $id = $order->requestId;
+
         $info = $this->makeRequest(
             'POST',
-            "https://dev.placetopay.com/redirection/api/session/{$requestId}",
+            "https://dev.placetopay.com/redirection/api/session/{$id}",
             [],
             [
                 'auth' => [
@@ -84,6 +88,7 @@ class WebService
             [
                 'Content-Type' => 'application/json'
             ],
+            $isJsonRequest = true
         );
         return json_decode($info);
     }
