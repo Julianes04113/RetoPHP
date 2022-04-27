@@ -11,10 +11,6 @@ class OrderFactory extends Factory
     use HasFactory;
     protected $model = Order::class;
 
-    protected $fillable = [
-        'status',
-    ];
-
     public function definition()
     {
         return [

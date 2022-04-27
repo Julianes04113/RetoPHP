@@ -41,6 +41,7 @@ class OrderPaymentController extends Controller
         $is_payed = $requestedInfo->status->status;
 
         $order->status = $is_payed;
+        
         $order->save();
 
         if ($is_payed == 'APPROVED') {

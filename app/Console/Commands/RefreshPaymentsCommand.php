@@ -19,10 +19,6 @@ class RefreshPaymentsCommand extends Command
 
     public function handle()
     {
-        $data = Order::select('requestId')
-        ->where('requestStatus', 'LIKE', 'PENDING')
-        ->get();
-
-        return dispatch(new CheckPaymentStatusJob($data));
+        return CheckPaymentStatusJob::dispatch();
     }
 }

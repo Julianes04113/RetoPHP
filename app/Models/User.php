@@ -42,11 +42,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Order::class, 'customer_id');
     }
 
-    /*public function payments()
-    {
-        return $this->HasManyThrough(Payment::class, Order::class, 'customer_id');
-    }//Payments debe tener una llave foránea del modelo intermedio (order)*/
-
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
@@ -70,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getProfileImageAttribute()
     {
         return $this->image
-        ? "images/{$this->image->path}"
+        ? "{$this->image->path}"
         : "images/users/1.jpg";
     }
 }

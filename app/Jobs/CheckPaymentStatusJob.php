@@ -22,8 +22,8 @@ class CheckPaymentStatusJob implements ShouldQueue
 
     public function __construct()
     {
-        $this->idsToProcess = Order::select('requestId')
-                ->where('requestStatus', 'LIKE', 'PENDING')
+        $this->idsToProcess = Order::select('status')
+                ->where('status', 'LIKE', 'PENDING')
                 ->get();
     }
 

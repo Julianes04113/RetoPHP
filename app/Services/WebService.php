@@ -14,7 +14,6 @@ class WebService
     protected $seed;
     protected $nonce;
     protected $tranKey;
-    protected $baseUri;
 
     public function __construct()
     {
