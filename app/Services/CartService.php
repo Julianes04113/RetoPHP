@@ -12,8 +12,7 @@ class cartService
     public function getFromCookie()
     {
         $cartId = Cookie::get($this->cookieName);
-        $cart = Cart::find($cartId);
-        return $cart;
+        return Cart::find($cartId);
     }
 
     public function getFromCookieorCreate()

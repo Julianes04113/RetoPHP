@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
   <head>
+    <title> Product Card Component </title>
     <style>
       .duration-4 {
        transition-duration: 0.4s;
