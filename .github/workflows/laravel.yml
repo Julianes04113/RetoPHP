@@ -25,7 +25,7 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@develop
+      uses: sonarsource/sonarcloud-github-action@Develop
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
