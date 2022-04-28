@@ -3,16 +3,13 @@
 namespace App\Jobs;
 
 use App\Models\Order;
-use App\Models\Payment;
 use App\Services\WebService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class CheckPaymentStatusJob implements ShouldQueue
 {
@@ -22,8 +19,7 @@ class CheckPaymentStatusJob implements ShouldQueue
 
     public function __construct()
     {
-        $this->idsToProcess = Order::select('status')
-                ->where('status', 'LIKE', 'PENDING')
+        $this->idsToProcess = Order::select('status', 'requestId')
                 ->get();
     }
 
@@ -31,8 +27,8 @@ class CheckPaymentStatusJob implements ShouldQueue
     {
         foreach ($this->idsToProcess as $order) {
             $processedIds = $this->WebService->getRequestInformation($order->requestId);
-            if ($processedIds->status->status != 'PENDING') {
-                $order->requestStatus = $processedIds->status->status;
+            if ($processedIds->status->status != 'APPROVED') {
+                $order->status = $processedIds->status->status;
                 $order->save();
             }
         }
