@@ -2,99 +2,72 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Product;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Resources\views\Products\index;
-use App\Http\Requests\Admin\StoreProductRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Eloquent\Collection;
 use App\Models\Image;
-use Illuminate\Support\Str;
-
+use App\Models\Product;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\StoreProductRequest;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $list = Product::Paginate(15);
-       return view('Products.index', compact('list'));
+    public function index(Request $request): View
+    {
+        $productSearch = trim($request->get('ProductSearchBar'));
+
+        $searched = Product::select('id', 'title', 'description', 'price', 'stock', 'status')
+            ->filter($productSearch)
+            ->orderBy('id', 'asc')
+            ->paginate(10);
+        return view('products.index', compact('productSearch', 'searched'));
     }
 
-    public function create(){
-        return view('Products.create');
+    public function create(): View
+    {
+        return view('products.create');
     }
 
-    public function store(StoreProductRequest $request){
-        /*$product = new Product();
-        $product->code = $request->input('code');
-        $product->title = $request->input('title');
-        $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->stock = $request->input('stock');
-        $product->status = $request->input('status');
-        $product->save();
-        este método no funciona */
-        /*
-        if($request->status == 'Available' && $request->stock == 0) {
-            return redirect()
-                ->back()
-                ->withInput($request->all())
-                ->withErrors('Si está disponible, debe tener un stock mínimo de 1');
-        }
-        */
-        //dd($request->all());
-        $image= new Image;
-
-        $image->storeAs('image',(string) Str::uuid() . '.' . $image->getClientOriginalExtension());
-
+    public function store(StoreProductRequest $request, Product $product): RedirectResponse
+    {
         $product = Product::create($request->validated());
 
-        /* $ProductRules=[
-            'code' => ['required', 'size:10', 'alpha_num', 'starts_with:MERCA'],
-            'name' => ['required', 'min:5', 'max:100'],
-            'price' => ['required', 'integer', 'min:1'],
-            'quantity' => ['required', 'integer', 'min:0'],
-            'description' => ['required', 'min:10', 'max:500'],
-            'status' => ['required'],
-                      ];
-        
-
-       request()->validate($ProductRules); */
-        
-       //$product = Product::create(request()->all());
-       //return redirect()->route('products.stored');
-       return view('products.stored');
-    } 
-
-    public function show($product){
-
-       $product = Product::findOrFail($product);
-
-       return view('products.show')->with([
-        'product'=> $product,   
-       ]);
-    }
-
-    public function edit($product){
-        return view('products.edit')->with([
-            'product'=> Product::findOrFail($product),
+        $product->images()->create([
+                'path' => $request->image->store('products', 'images'),
             ]);
+
+        return redirect()->back()->with('success', 'Bien Tontolín, te quedo creado bien esta mondá');
     }
 
-    public function update(StoreProductRequest $product){
-        //dd('Estoy en update');
-        $product= Product::findOrFail($product);
-        $product->update(request()->all());
-        return view('products.edited');
-        //comentario en vista
+    public function show($product): View
+    {
+        $product = Product::findOrFail($product);
+        $query = Product::findOrFail($product->id)->images;
+        $images = $query->pluck('path')->toArray();
+        return view('products.show')->with(
+            ['product' => $product,
+            'images' => $images]
+        );
     }
 
-    public function destroy($product){
-        $product=Product::findOrFail($product);
+    public function edit(Product $product): View
+    {
+        $query = Product::findOrFail($product->id)->images;
+        $images = $query->pluck('path')->toArray();
+        return view('products.edit')->with([
+            'product' => $product,
+            'images' => $images]);
+    }
+
+    public function update(StoreProductRequest $request, Product $product): RedirectResponse
+    {
+        $product->update($request->validated());
+        return redirect()->back()->with('success', 'Bien Tontolín, te quedo editado bien esta mondá');
+    }
+
+    public function destroy($product): View
+    {
+        $product = Product::findOrFail($product);
         $product->delete();
         return view('products.deleted');
     }

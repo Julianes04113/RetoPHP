@@ -2,43 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Resources\views\Users\edit;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Admin\StoreUserRequest;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        $userslist = User::all();
-        return view('users.index', compact('userslist'));
+        $users = User::paginate(10);
+        return view('users.index', compact('users'));
     }
 
-public function show($user)
+    public function show($user): View
     {
-       $user = User::findOrFail($user);
-       return view('users.show')->with([
-        'user'=> $user,   
-       ]);
+        $image = Auth::user()->profile_image;
+        $user = User::findOrFail($user);
+        return view('users.show')->with([
+            'user' => $user,
+            'image' => $image,
+        ]);
     }
 
-    public function edit($user)
+    public function edit($user): View
     {
         $user = User::findOrFail($user);
-        //dd($user);
+        $image = Auth::user()->profile_image;
         return view('users.edit')->with([
-            'user'=> $user,
-            ]);
+            'user' => $user,
+            'image' => $image,
+        ]);
     }
 
-    public function update($user){
-     
-        $user= User::findOrFail($user);
-        //dd($user);
-        $user->update(request()->all());
-        return view('users.edited');
-         }
+    public function update(StoreUserRequest $request, User $user): RedirectResponse
+    {
+        $user->update($request->validated());
+        return redirect()->back()->with('success', 'Bien Tontolín, te quedo editado bien esta mondá');
+    }
 }

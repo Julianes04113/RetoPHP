@@ -2,33 +2,10 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Default Filesystem Disk
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify the default filesystem disk that should be used
-    | by the framework. The "local" disk, as well as a variety of cloud
-    | based disks are available to your application. Just store away!
-    |
-    */
 
     'default' => env('FILESYSTEM_DRIVER', 'local'),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Filesystem Disks
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure as many filesystem "disks" as you wish, and you
-    | may even configure multiple disks of the same driver. Defaults have
-    | been setup for each driver as an example of the required options.
-    |
-    | Supported Drivers: "local", "ftp", "sftp", "s3"
-    |
-    */
-
-    'images_disk' =>env('FILESYSTEM_IMAGE_DISK', 'image'),
+    'images_disk' =>env('FILESYSTEM_IMAGES_DISK', 'images'),
 
     'disks' => [
 
@@ -37,11 +14,11 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'image' => [
+        'images' => [
             'driver' => 'local',
-            'root' => storage_path('image'),
-            'url' => env('APP_URL').'/image',
-
+            'root' => storage_path('app/public/images'),
+            'url' => env('APP_URL').'/images',
+            'visibility' => 'public',
         ],
 
         'public' => [
@@ -77,6 +54,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('images') => storage_path('app/public/images'),
     ],
 
 ];

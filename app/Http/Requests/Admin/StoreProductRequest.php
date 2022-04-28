@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -10,24 +11,24 @@ class StoreProductRequest extends FormRequest
     {
         return true;
     }
-    
+
     public function rules(): array
     {
         return [
-            'code' => ['required', 'size:10', 'alpha_num', 'starts_with:MERCA'],
             'title' => ['required', 'min:5', 'max:100'],
-            'price' => ['required', 'integer', 'min:1'],
+            'price' => ['required', 'integer', 'min:1000'],
             'stock' => ['required', 'integer', 'min:0'],
             'description' => ['required', 'min:10', 'max:500'],
             'status' => ['required'],
+            'image' => ['required','image'],
         ];
     }
 
-     public function messages(): array
+    public function messages(): array
     {
         return [
-            'code.starts_with:MERCA' => 'Vea mijo! el :attribute debe seguir el formato MERCA##### y debe ser único',
-            'min' => 'Mandamiento número 11, nunca dividir por cero! (osea agreguele algo mayor a cero, no sea así)'
+            'min' => 'Debe contener al menos 5 caracteres y un máximo de 100',
+            'required' => 'Esto va sí o sí, le guste o no'
         ];
     }
 }
