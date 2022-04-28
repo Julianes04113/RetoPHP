@@ -13,7 +13,9 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "nesbot/carbon": "^2.57"
+        "maatwebsite/excel": "^3.1",
+        "nesbot/carbon": "^2.57",
+        "phpoffice/phpspreadsheet": "^1.23"
     },
     "require-dev": {
         "ambersive/keepachangelog": "^1.1",
