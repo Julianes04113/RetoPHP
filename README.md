@@ -8,7 +8,7 @@
 
 Mercatodo es el peor supermercado que la malévolamente de Julian pudo haber creado.
 
-## Compraraquí
+## Comprar aquí
 
 Comprar aquí es una salvajada, los precios subieron porque es más emprendedor importar los alimentos, como dijo el señor subpresidente con 3 años de "aprendizaje".
 
