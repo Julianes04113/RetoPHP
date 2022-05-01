@@ -72,6 +72,9 @@
                             <x-dropdown-link :href="route('Profile')">
                                 {{ __('Mi Perfil') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('userpayments')">
+                                {{ __('Mis "pagos"') }}
+                            </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductImportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +19,8 @@ Route::prefix('Admin')
     ->group(function () {
         Route::resource('products', 'ProductController');
         Route::resource('users', 'AdminController');
+        Route::get('imports', 'ProductImportController@index')->name('imports.index');
+        Route::get('example', 'ProductImportController@example')->name('imports.example');
     });
 
 Route::prefix('Market')
@@ -33,4 +37,5 @@ Route::prefix('Market')
         Route::get('/Profile', 'UserEditController@edit')->name('Profile');
         Route::put('/Profile', 'UserEditController@update')->name('Profile.update');
         Route::get('/successfullRobery/{order}', 'OrderPaymentController@handle')->name('successfullRobery');
+        Route::get('/MyPayments', 'OrderPaymentController@userpayments')->name('userpayments');
     });

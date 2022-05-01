@@ -38,7 +38,7 @@ class AdminController extends Controller
 
     public function update(StoreUserRequest $request, User $user): RedirectResponse
     {
-        $user->update($request->validated());
+        $user->update($request->validated()); //forceFill para obligar a no usar fillable en admin_since
         return redirect()->back()->with('success', 'Bien Tontolín, te quedo editado bien esta mondá');
     }
 }

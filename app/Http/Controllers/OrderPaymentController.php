@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Services\cartService;
 use App\Services\WebService;
+use Illuminate\Http\Request;
+use App\Services\cartService;
+use Illuminate\Http\Response;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class OrderPaymentController extends Controller
 {
@@ -62,5 +64,16 @@ class OrderPaymentController extends Controller
             return redirect()->route('dashboard')
                 ->with('success', 'oiga nea, porqué cancela? vaya reintente pues ome');
         }
+    }
+
+    public function userpayments(User $user)
+    {
+        $user = Auth::user();
+        $query = Order::select('id', 'customer_id', 'status', 'requestId', 'amount')
+            ->where('customer_id', 'LIKE', $user->id)->get();
+        return view('payments.index')->with([
+            'user' => $user,
+            'query' => $query,
+        ]);
     }
 }
