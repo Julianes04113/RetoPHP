@@ -11,6 +11,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductImportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
+    
     public function index()
     {
         return view('Imports.index');

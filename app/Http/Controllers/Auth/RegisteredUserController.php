@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-        ]);
+        ])->assignRole('customer');
 
         event(new Registered($user));
 

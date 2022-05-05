@@ -10,21 +10,12 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:customer|admin'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
-Route::prefix('Admin')
-    ->middleware(['auth', 'verified', 'AdminMiddleware'])
-    ->group(function () {
-        Route::resource('products', 'ProductController');
-        Route::resource('users', 'AdminController');
-        Route::get('imports', 'ProductImportController@index')->name('imports.index');
-        Route::get('example', 'ProductImportController@example')->name('imports.example');
-    });
-
 Route::prefix('Market')
-    ->middleware(['auth', 'verified', 'StatusMiddleware'])
+    ->middleware(['auth', 'verified', 'StatusMiddleware', 'role:customer|admin'])
     ->group(function () {
         Route::get('products', 'UserProductController@index')->name('UserProduct.index');
         Route::get('products/{id}', 'UserProductController@show')->name('UserProduct.show');

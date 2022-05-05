@@ -16,6 +16,8 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:5', 'max:100'],
+            'admin_since' => ['present', 'nullable'],
+            'disabled_at' => ['present', 'nullable'],
         ];
     }
 

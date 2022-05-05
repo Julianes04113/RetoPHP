@@ -9,13 +9,7 @@ class AdminMiddleware
 {
     public function handle($request, Closure $next)
     {
-        $idsToProcess = Order::select('status', 'requestId')
-        ->where('status', 'LIKE', 'PENDING')
-        ->get();
-        dd($idsToProcess);
-        
         $user = Auth::user();
-
         if ($user->admin_since != 'null') {
             return $next($request);
         }

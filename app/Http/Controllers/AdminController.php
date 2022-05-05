@@ -10,6 +10,11 @@ use App\Http\Requests\Admin\StoreUserRequest;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
+
     public function index(): View
     {
         $users = User::paginate(10);
@@ -39,6 +44,31 @@ class AdminController extends Controller
     public function update(StoreUserRequest $request, User $user): RedirectResponse
     {
         $user->update($request->validated()); //forceFill para obligar a no usar fillable en admin_since
+        
+        if ($request->admin_since != null) {
+            $user->forceFill([
+                'admin_since' => now(),
+            ]);
+            $user->assignRole('admin');
+        } else {
+            $user->forceFill([
+                'admin_since' => null
+            ]);
+            $user->assignRole('customer');
+        }
+
+        if ($request->disabled_at != null) {
+            $user->forceFill([
+                'disabled_at' => now(),
+            ]);
+        } else {
+            $user->forceFill([
+                'disabled_at' => null
+            ]);
+        }
+
+        $user->save();
+        
         return redirect()->back()->with('success', 'Bien Tontolín, te quedo editado bien esta mondá');
     }
 }
