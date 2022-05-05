@@ -15,6 +15,8 @@ class OrderFactory extends Factory
     {
         return [
             'status' => $this->faker->randomElement(['PENDING', 'APPROVED', 'REJECTED']),
+            'requestId' => $this->faker->randomNumber(5),
+            'amount' => $this->faker->randomNumber(5),
         ];
     }
 }

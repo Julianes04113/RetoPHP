@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class StatusMiddleware
 {
     public function handle($request, Closure $next)
     {

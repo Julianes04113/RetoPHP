@@ -10,7 +10,6 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-
         if ($user->admin_since != 'null') {
             return $next($request);
         }

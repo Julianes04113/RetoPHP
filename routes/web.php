@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductImportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,19 +10,12 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:customer|admin'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
-Route::prefix('Admin')
-    ->middleware(['auth', 'verified', 'AdminMiddleware'])
-    ->group(function () {
-        Route::resource('products', 'ProductController');
-        Route::resource('users', 'AdminController');
-    });
-
 Route::prefix('Market')
-    ->middleware(['auth', 'verified', 'StatusMiddleware'])
+    ->middleware(['auth', 'verified', 'StatusMiddleware', 'role:customer|admin'])
     ->group(function () {
         Route::get('products', 'UserProductController@index')->name('UserProduct.index');
         Route::get('products/{id}', 'UserProductController@show')->name('UserProduct.show');
@@ -33,4 +28,5 @@ Route::prefix('Market')
         Route::get('/Profile', 'UserEditController@edit')->name('Profile');
         Route::put('/Profile', 'UserEditController@update')->name('Profile.update');
         Route::get('/successfullRobery/{order}', 'OrderPaymentController@handle')->name('successfullRobery');
+        Route::get('/MyPayments', 'OrderPaymentController@userpayments')->name('userpayments');
     });

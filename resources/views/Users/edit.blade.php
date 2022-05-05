@@ -31,15 +31,15 @@
 <!--Rol-->
 <div class="w-full flex flex-col mb-3">
 <label class="font-semibold text-gray-800 py-2">Rol</label>
-<select name="admin_since" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full">
-<option value="null">Usuario</option>
-<option value="{{now()}}">Admin</option></select>
+<select name="admin_since" id="admin_since" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full">
+<option value="{{null}}">Usuario</option>
+<option value="{{Carbon\Carbon::now()}}">Admin</option></select>
 <!--Habilitación-->
 <div class="w-full flex flex-col mb-3">
 <label class="font-semibold text-gray-800 py-2">Estado</label>
-<select name="disabled_at" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
-<option value="null">Habilitado</option>
-<option value="{{now()}}">No Habilitado</option></select>
+<select name="disabled_at" id="disabled_at" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+<option value="{{null}}">Habilitado</option>
+<option value="{{Carbon\Carbon::now()}}">No Habilitado</option></select>
 <button class="bg-yellow-100 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded">Editar Usuario</button>
 </div>
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />

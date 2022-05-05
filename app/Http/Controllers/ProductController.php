@@ -12,6 +12,11 @@ use App\Http\Requests\Admin\StoreProductRequest;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
+    
     public function index(Request $request): View
     {
         $productSearch = trim($request->get('ProductSearchBar'));
