@@ -14,7 +14,7 @@ class CheckPaymentStatusJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public WebService $webService;
+    //public WebService $webService;
 
     public function handle()
     {

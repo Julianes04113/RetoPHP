@@ -66,7 +66,7 @@ class OrderPaymentController extends Controller
         }
     }
 
-    public function userpayments(User $user)
+    public function userpayments()
     {
         $user = Auth::user();
         $query = Order::select('id', 'customer_id', 'status', 'requestId', 'amount')
