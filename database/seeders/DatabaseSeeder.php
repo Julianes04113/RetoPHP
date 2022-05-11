@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
             $order->save();
           });
 
-        //Cuando se seedea orders pero no tienen requestIds, ¿se creará un portal al infierno?
+        //Cuando se seedea orders pero no tienen requestIds, ¿se creará un portal al infierno en las colas?
         $carts = Cart::factory(10)->create();
 
         $products = Product::factory(50)

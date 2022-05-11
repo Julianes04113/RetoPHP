@@ -14,8 +14,6 @@ class CheckPaymentStatusJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    //public WebService $webService;
-
     public function handle()
     {
         $idsToProcess = Order::select('id', 'status', 'requestId')
