@@ -3,11 +3,10 @@
 namespace App\Exports;
 
 use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ExampleExport implements FromCollection, WithHeadings
+class ProductsExport implements FromCollection, WithHeadings
 {
     public function headings(): array
     {
@@ -20,12 +19,8 @@ class ExampleExport implements FromCollection, WithHeadings
             'estado'
         ];
     }
-
     public function collection()
     {
-        $user = Auth::user();
-        return Product::select('id', 'title', 'description', 'price', 'stock', 'status')
-            ->where('id', 'LIKE', $user->id)
-            ->get();
+        return Product::select('id', 'title', 'description', 'price', 'stock', 'status')->get();
     }
 }
