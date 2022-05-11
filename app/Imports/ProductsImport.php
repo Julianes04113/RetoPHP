@@ -26,6 +26,8 @@ HeadingRowFormatter::default('none');
 
 class ProductsImport implements ToCollection, WithHeadingRow, WithBatchInserts, WithUpserts, WithValidation, WithChunkReading, ShouldQueue, WithEvents
 {
+//revisar el tema de catch los exceptions, el upsert no permite agarrarlos, ni crear la relación de imagenes por defecto
+
     public function __construct()
     {
         $this->user = Auth::user();
