@@ -27,3 +27,17 @@ Su seguridad es tan, pero TAN importante, que nos aseguramos de crear bugs sóla
 ## Pérdida
 
 Leer este "léeme" fue una pérdida de valiosos segundos.
+
+## Agradecimientos
+    
+Muchas gracias a todos! sé que es una versión sin pruebas, sin coverage, y con muchas cosas que se pueden refactorizar (usar langs (traducciones) para los mensajes, quizá agregar muchos actions para agilizar los CRUD's, me quedó a medias lo del softdeletes y el eager loading, ni hablar de los global scopes para sólo ver productos disponibles, etc...), pero este es el a muy a medias, el reto finalizado, hace lo que pide el reto, en al menos gran parte de él (aunque lo que esté mal, es culpa de los vacíos legales :P).
+
+## Lista de Final-merge-shower
+    Alejandro: como 15 asesorías = 15 cervezas, total = 15 cervezas,
+    Jhon "Tucán místico" Osorio: 2 asesorías = 2 cervezas, hacerme instalar Tailwind = -10 cervezas, total = -8 cervezas,
+    Valeria: 2 asesorías = 2 helados, 1 asesoría urgente = 3 helados, total = 5 helados,
+    Laura: favores = 5 helados, total = 5 helados,
+    Aura: favores = 2 helados, total = 2 helados,
+    Jhon Ortiz = 1 miniasesoría = 1/2 cerveza, total = 1/2 cervezas,
+    "Capitán" Barbosa = Workshop productivos = 1 cerveza.
+    Si alguien quiere algo adicional, favor pedirlo con anticipación en la administración.
