@@ -3,10 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\User;
 use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Support\MessageBag;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class AdminMiddleware
 {

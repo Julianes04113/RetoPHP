@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Tus "Pagos":') }}
+            {{ __('Tus disque "compras"') }}
         </h2>
     </x-slot>
 
@@ -19,58 +19,58 @@
                             <tr>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Pago
+                                    Número de orden
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Valor Total
+                                    Valor de la orden
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Estado
+                                    Estado de la orden
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Acción
+                                    Acciones
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($payments as $payment)
+                            @foreach($query as $order)
                             <tr>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <div class="flex items-center">
+                                        <div class="ml-3">
+                                            <p class="text-gray-900 whitespace-no-wrap">
+                                                {{$order->requestId}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{$order->amount}}</p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap">
-                                        {{$payment->}}
+                                        {{$order->status}}
                                     </p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span class="relative">{{$products->pivot->quantity}}</span>
-                                    </span>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-black text-lg font-bold whitespace-no-wrap">
-                                        {{$products->pivot->quantity * $products->price}}
-                                    </p>
+                                @if($order->status != 'APPROVED')
+                                <form method="POST" action="{{route('orders.payments.webcheckout', ['order'=> $order->id, 'value'=> $order->total ]) }}">
+                                @csrf
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">"Pagar" con Webcheckout</button>
+                                </form>
+                                @else
+                                Yaper... Yaperdió ome
+                                @endif
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
-                     </table>
-                     <div class="object-center">
-                                    <p class="text-lime-400 text-lg text-center font-bold whitespace-no-wrap"> Total de la orden = ${{$cart->total}}</p></div>
-                    <div class="flex-auto w-90 justify-self-center">
-                        <br>
-                        <form method="POST" action="{{route('orders.store')}}" class="w-90 justify-self-center">
-                                @csrf
-                    <button type="submit" class="text-black bg-cyan-300 hover:bg-cyan-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center ">Proceder al pago</button>
-                                </form>
+                    </table>
                 </div>
             </div>
-                 </div>
         </div>
     </div>
 </div>

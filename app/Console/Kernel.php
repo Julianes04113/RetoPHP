@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new CheckPaymentStatusJob)->everyFiveMinutes();
+        $schedule->command('sanctum:prune-expired --hours=24')->daily();
     }
 
     protected function commands(): void
