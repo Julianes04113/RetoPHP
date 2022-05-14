@@ -27,6 +27,8 @@ class ReportsController extends Controller
     public function export(Request $request)
     {
         $typeOfReport = $request->export;
+        $user = Auth::user();
+        $user->notify(new ExportNotification());
 
         if ($typeOfReport == 'people') {
             return Excel::download(new PeopleReportExport, 'gentuza.xlsx');
@@ -35,12 +37,5 @@ class ReportsController extends Controller
         } elseif ($typeOfReport == 'orders') {
             return Excel::download(new OrdersReportExport, 'ordenes.xlsx');
         }
-        
-        $user = Auth::user();
-
-        $user->notify(new ExportNotification());
-        
-
-        return redirect()->back()->with('success', 'Todo bien! dijo el borracho y lo llevaban alzado xD');
     }
 }
