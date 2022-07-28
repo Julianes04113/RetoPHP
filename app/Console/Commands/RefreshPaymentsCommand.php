@@ -8,7 +8,7 @@ use App\Jobs\CheckPaymentStatusJob;
 
 class RefreshPaymentsCommand extends Command
 {
-    protected $signature = 'RefreshPaymentsStatus';
+    protected $signature = 'app:resolve';
 
     protected $description = 'Este comando refrescará el estado de un pago en la DB cada 5 minutos';
 

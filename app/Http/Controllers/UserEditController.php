@@ -44,7 +44,7 @@ class UserEditController extends Controller
                     $user->image->delete();
                 }
 
-                $path = $request->image->store('users', 'image');
+                $path = $request->image->store('users', 'images');
 
                 $user->image()->create([
                     'path' => $path,
